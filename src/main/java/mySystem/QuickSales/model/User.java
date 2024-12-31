@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.util.Set;
@@ -46,6 +47,11 @@ public class User {
     private String password;
     
     private boolean enabled;
+    
+    @PrePersist
+    public void prePersist(){
+        enabled = true;
+    }
     
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

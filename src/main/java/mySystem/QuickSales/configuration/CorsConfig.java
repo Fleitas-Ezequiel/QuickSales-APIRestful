@@ -14,12 +14,12 @@ public class CorsConfig {
       @Override
       public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/login")//Mapeamos la ruta que nos permite logearnos
-                .allowedOrigins("http://localhost:4200")
+                .allowedOrigins("*")
                 .allowedMethods("*")
                 .exposedHeaders("*");
         
-        registry.addMapping("/api/**")//Mapeamos la ruta que nos devuelve un listado de personas
-                .allowedOrigins("http://localhost:4200")
+        registry.addMapping("/**")//Mapeamos la ruta que nos devuelve un listado de personas
+                .allowedOrigins("*")
                 .allowedMethods("*");
       }
     };

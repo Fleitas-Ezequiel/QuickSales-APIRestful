@@ -26,12 +26,12 @@ public class UsuarioController {
     @Autowired
     private final IUserService userService;
 
-    @PostMapping("/changePassword")
+    @PostMapping("/change-password")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
         try {
-            userService.changePassword(request.getUsername(), request.getNewPassword());
+            userService.changePassword(request.getUsername(), request.getNew_password());
             return ResponseEntity.ok("Contraseña cambiada correctamente.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error en el cambio de password");

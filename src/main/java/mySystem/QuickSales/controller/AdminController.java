@@ -17,8 +17,8 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/createUser")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/create-user")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest request) {
         userService.crearUsuario(request);
         return ResponseEntity.ok("Usuario creado correctamente.");

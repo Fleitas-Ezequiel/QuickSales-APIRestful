@@ -34,14 +34,13 @@ public class UserService implements IUserService{
 
     @Override
     public void crearUsuario(CreateUserRequest request) {
-        // Buscar el rol
-        Role role = roleService.getRoleByName(request.getRole());
-
         // Crear el usuario
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(password_encoder.encode(request.getPassword()));
-        user.setRole(Set.of(role));
+        
+        Role rol = roleService.createRoleIfNotExists("ROLE_"+request.getRole());
+        user.setRole(Set.of(rol));
         user_repo.save(user);
     }
 

@@ -34,11 +34,11 @@ public class SecurityConfig {
               .and()
               .csrf().disable()         //desabilitamos el  cross site request forgery
               .authorizeHttpRequests()      //reglas de solicitudes
-              .requestMatchers("api/auth/**").permitAll() //habilitacion de registro/login de un usuario y permitimos cualquier solicitud que ingrese a la api
-              .requestMatchers("/admin/**").hasRole("ADMIN")
-              .requestMatchers("/ventas/**").hasRole("VENDEDOR")
-              .requestMatchers("/deposito/**").hasRole("REPOSITOR")
-              .requestMatchers("/proveedores/**").hasRole("COMPRADOR")
+              .requestMatchers("/user/**").permitAll() //habilitacion de registro/login de un usuario y permitimos cualquier solicitud que ingrese a la api
+              .requestMatchers("/admin/**").hasRole("ROLE_ADMIN")
+              .requestMatchers("/ventas/**").hasRole("ROLE_VENDEDOR")
+              .requestMatchers("/deposito/**").hasRole("ROLE_REPOSITOR")
+              .requestMatchers("/proveedores/**").hasRole("ROLE_COMPRADOR")
               .anyRequest()
               .authenticated()          //debe estar autenticada
               .and()

@@ -34,6 +34,7 @@ public class DataInitializer {
         if (!userRepository.existsByUsername("root")) {
             User rootUser = new User();
             rootUser.setUsername("root");
+            rootUser.setEmail("admin@admin.com");
             rootUser.setPassword(passwordEncoder.encode("toor"));
             rootUser.setRole(Set.of(adminRole));
             userRepository.save(rootUser);
