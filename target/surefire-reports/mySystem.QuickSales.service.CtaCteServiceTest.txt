@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: mySystem.QuickSales.service.CtaCteServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in mySystem.QuickSales.service.CtaCteServiceTest
+testVerCtaCte  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.CtaCteRepository.findAll()" because "this.ctacte_repo" is null
+	at mySystem.QuickSales.service.CtaCteServiceTest.testVerCtaCte(CtaCteServiceTest.java:88)
+
+testRegistrarCtaCte  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.CtaCteServiceTest.testRegistrarCtaCte(CtaCteServiceTest.java:51)
+
+testEliminarCtaCte  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.CtaCteServiceTest.testEliminarCtaCte(CtaCteServiceTest.java:77)
+
+testActualizarCtaCte  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.CtaCteServiceTest.testActualizarCtaCte(CtaCteServiceTest.java:64)
+

@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: mySystem.QuickSales.service.VentaServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in mySystem.QuickSales.service.VentaServiceTest
+testModificarVenta  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.VentaServiceTest.testModificarVenta(VentaServiceTest.java:64)
+
+testRegistrarVenta  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.VentaServiceTest.testRegistrarVenta(VentaServiceTest.java:51)
+
+testVerVenta  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.VentaRepository.findAll()" because "this.venta_repo" is null
+	at mySystem.QuickSales.service.VentaServiceTest.testVerVenta(VentaServiceTest.java:88)
+
+testEliminarVenta  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.VentaServiceTest.testEliminarVenta(VentaServiceTest.java:77)
+

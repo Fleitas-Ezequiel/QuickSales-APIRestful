@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-QuickSalesApplication<QuickSalesAPI>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "mySystem.QuickSales.QuickSalesApplication",
+      "projectName": "QuickSalesAPI",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

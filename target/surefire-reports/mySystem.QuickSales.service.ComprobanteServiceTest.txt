@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: mySystem.QuickSales.service.ComprobanteServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0.002 s <<< FAILURE! - in mySystem.QuickSales.service.ComprobanteServiceTest
+testVerBoletas  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.ComprobanteRepository.findAll()" because "this.boleta_repo" is null
+	at mySystem.QuickSales.service.ComprobanteServiceTest.testVerBoletas(ComprobanteServiceTest.java:80)
+
+testRegistrarBoleta  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.ComprobanteServiceTest.testRegistrarBoleta(ComprobanteServiceTest.java:43)
+
+testEliminarBoleta  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.ComprobanteServiceTest.testEliminarBoleta(ComprobanteServiceTest.java:69)
+
+testActualizarBoleta  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.ComprobanteServiceTest.testActualizarBoleta(ComprobanteServiceTest.java:56)
+

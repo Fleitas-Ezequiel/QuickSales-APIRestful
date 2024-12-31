@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: mySystem.QuickSales.service.MetodoPagoServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in mySystem.QuickSales.service.MetodoPagoServiceTest
+testRegistrarMetodoPago  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.MetodoPagoServiceTest.testRegistrarMetodoPago(MetodoPagoServiceTest.java:51)
+
+testEliminarMetodoPago  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.MetodoPagoServiceTest.testEliminarMetodoPago(MetodoPagoServiceTest.java:77)
+
+testModificarMetodoPago  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.MetodoPagoServiceTest.testModificarMetodoPago(MetodoPagoServiceTest.java:64)
+
+testVerMetodoPago  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.MetodoPagoRepository.findAll()" because "this.metodo_pago_repo" is null
+	at mySystem.QuickSales.service.MetodoPagoServiceTest.testVerMetodoPago(MetodoPagoServiceTest.java:88)
+

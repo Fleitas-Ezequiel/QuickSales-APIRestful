@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: mySystem.QuickSales.service.ProductoServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in mySystem.QuickSales.service.ProductoServiceTest
+testVerProducto  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.ProductoRepository.findAll()" because "this.producto_repo" is null
+	at mySystem.QuickSales.service.ProductoServiceTest.testVerProducto(ProductoServiceTest.java:88)
+
+testEliminarProducto  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.ProductoServiceTest.testEliminarProducto(ProductoServiceTest.java:77)
+
+testRegistrarProducto  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.ProductoServiceTest.testRegistrarProducto(ProductoServiceTest.java:51)
+
+testModificarProducto  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.ProductoServiceTest.testModificarProducto(ProductoServiceTest.java:64)
+

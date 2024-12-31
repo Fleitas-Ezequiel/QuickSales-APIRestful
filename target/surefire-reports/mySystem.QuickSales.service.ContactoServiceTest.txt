@@ -1,0 +1,24 @@
+-------------------------------------------------------------------------------
+Test set: mySystem.QuickSales.service.ContactoServiceTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 2, Errors: 3, Skipped: 0, Time elapsed: 0.003 s <<< FAILURE! - in mySystem.QuickSales.service.ContactoServiceTest
+testListarPorProveedor  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.ContactoRepository.findByProveedorId(int)" because "this.contactoRepo" is null
+	at mySystem.QuickSales.service.ContactoServiceTest.testListarPorProveedor(ContactoServiceTest.java:103)
+
+testRegistrarContacto  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.ContactoServiceTest.testRegistrarContacto(ContactoServiceTest.java:51)
+
+testVerContactos  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.ContactoRepository.findAll()" because "this.contactoRepo" is null
+	at mySystem.QuickSales.service.ContactoServiceTest.testVerContactos(ContactoServiceTest.java:88)
+
+testActualizarContacto  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at mySystem.QuickSales.service.ContactoServiceTest.testActualizarContacto(ContactoServiceTest.java:64)
+
+testEliminarContacto  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.DTO.ContactoDTO.getId()" because "contacto_dto" is null
+	at mySystem.QuickSales.service.ContactoServiceTest.testEliminarContacto(ContactoServiceTest.java:75)
+
