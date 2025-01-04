@@ -1,7 +1,7 @@
 package mySystem.QuickSales.configuration;
 
 import jakarta.annotation.PostConstruct;
-import java.util.Set;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mySystem.QuickSales.model.Role;
 import mySystem.QuickSales.model.User;
@@ -36,7 +36,7 @@ public class DataInitializer {
             rootUser.setUsername("root");
             rootUser.setEmail("admin@admin.com");
             rootUser.setPassword(passwordEncoder.encode("toor"));
-            rootUser.setRole(Set.of(adminRole));
+            rootUser.setRoles((List<Role>) adminRole);
             userRepository.save(rootUser);
         }
     }

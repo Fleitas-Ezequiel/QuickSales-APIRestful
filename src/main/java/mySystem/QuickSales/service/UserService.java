@@ -37,10 +37,11 @@ public class UserService implements IUserService{
         // Crear el usuario
         User user = new User();
         user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
         user.setPassword(password_encoder.encode(request.getPassword()));
         
         Role rol = roleService.createRoleIfNotExists("ROLE_"+request.getRole());
-        user.setRole(Set.of(rol));
+        user.setRoles((List<Role>) rol);
         user_repo.save(user);
     }
 
@@ -60,6 +61,7 @@ public class UserService implements IUserService{
         List<User> lista_entidad = user_repo.findAll();
         for(User usuario: lista_entidad){
             UserDTO user = model_mapper.map(usuario, UserDTO.class);
+            user.setRol(roleService.getRoleByUsername(user.getUsername()));
             lista_usuarios.add(user);
         }
         return lista_usuarios;

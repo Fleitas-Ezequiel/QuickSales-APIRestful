@@ -10,5 +10,6 @@ public interface IRoleService {
     public void modificarRol(Role rol);
     public void eliminarRol(Role rol);
     public Role getRoleByName(String roleName);
+    public List<Role> getRoleByUsername(String username);
     public List<Role> getAllRoles();
 }

@@ -1,6 +1,5 @@
 package mySystem.QuickSales.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import mySystem.QuickSales.DTO.ChangePasswordRequest;

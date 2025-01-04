@@ -6,6 +6,7 @@ import mySystem.QuickSales.iservice.IProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ public class ProveedorController {
   private IProveedorService proveedorService;
   
   @PostMapping("/registry")
+  @PreAuthorize("hasRole('ROLE_COMPRADOR')")
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<String> registrarProveedor(@RequestBody ProveedorDTO proveedor){
     try {
@@ -36,6 +38,7 @@ public class ProveedorController {
   }
   
   @PutMapping("/update")
+  @PreAuthorize("hasRole('ROLE_COMPRADOR')")
   public ResponseEntity<String> actualizarProveedor(@RequestBody ProveedorDTO proveedor){
     try {
       proveedorService.modificarProveedor(proveedor);
@@ -47,6 +50,7 @@ public class ProveedorController {
   
   
   @DeleteMapping("/delete")
+  @PreAuthorize("hasRole('ROLE_COMPRADOR')")
   public ResponseEntity<String> eliminarProveedor(@RequestBody ProveedorDTO proveedor){
     try {
       proveedorService.eliminarProveedor(proveedor);
@@ -57,6 +61,7 @@ public class ProveedorController {
   }
   
   @GetMapping("/list")
+  @PreAuthorize("hasRole('ROLE_COMPRADOR')")
   @ResponseBody
   public List<ProveedorDTO> listarProveedores(@RequestParam(required = false) String filtro){
     return proveedorService.verProveedor();

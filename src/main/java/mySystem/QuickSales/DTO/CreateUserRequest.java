@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateUserRequest {
     private String username;
+    private String email;
     private String password;
     private String role; // Nombre del rol asignado
 

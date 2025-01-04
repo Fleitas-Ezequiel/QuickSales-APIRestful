@@ -1,5 +1,6 @@
 package mySystem.QuickSales.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import mySystem.QuickSales.iservice.IRoleService;
 import mySystem.QuickSales.model.Role;
@@ -28,12 +29,10 @@ public class RoleService implements IRoleService{
 
     @Override
     public void modificarRol(Role rol) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void eliminarRol(Role rol) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -45,6 +44,12 @@ public class RoleService implements IRoleService{
     @Override
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
+    }
+
+    @Override
+    public List<Role> getRoleByUsername(String username) {
+        List<Role> roles = roleRepository.findByUsername(username);
+        return roles;
     }
     
 }
