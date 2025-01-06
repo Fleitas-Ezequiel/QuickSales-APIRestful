@@ -1,12 +1,12 @@
 package mySystem.QuickSales.security;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
     
 //    private final UserDetailsService userDetailsService;  //Administrador de credenciales de usuario
@@ -38,13 +38,11 @@ public class SecurityConfig {
 //      jwtAuthenticationFilter.setFilterProcessesUrl("/login"); //Establecemos la ruta para el inicio de sesion
 
       return http.authorizeHttpRequests( (authz) -> authz
-              .requestMatchers(HttpMethod.GET,"/user/list").permitAll()
-              .requestMatchers(HttpMethod.POST,"/admin/").hasRole("ADMIN")
+              .requestMatchers("/user/list").permitAll()
+              .requestMatchers(HttpMethod.POST,"/admin").hasRole("ADMIN")
               .anyRequest().authenticated())
-              .httpBasic()
-              .and()
               .addFilter(new JWTAuthenticationFilter(authManager()))
-//              .addFilterBefore(jwtAuthorizationFilter , UsernamePasswordAuthenticationFilter.class)
+              .addFilter(new JWTAuthorizationFilter(authManager()))
               .csrf().disable()
               .cors().and()
               .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

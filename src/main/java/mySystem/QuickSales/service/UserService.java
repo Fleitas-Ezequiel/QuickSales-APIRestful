@@ -40,7 +40,8 @@ public class UserService implements IUserService{
         user.setEmail(request.getEmail());
         user.setPassword(password_encoder.encode(request.getPassword()));
         
-        Role rol = roleService.createRoleIfNotExists("ROLE_"+request.getRole());
+        List<Role> rol = new ArrayList<>();
+        rol.add(roleService.createRoleIfNotExists("ROLE_"+request.getRole()));
         user.setRoles((List<Role>) rol);
         user_repo.save(user);
     }

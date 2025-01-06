@@ -26,7 +26,6 @@ public class UsuarioController {
     private final IUserService userService;
 
     @PostMapping("/change-password")
-    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
         try {

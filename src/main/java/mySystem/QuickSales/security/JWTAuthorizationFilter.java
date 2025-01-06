@@ -34,24 +34,25 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
     String bearerToken = request.getHeader("Authorization");
     
     if(bearerToken != null && bearerToken.startsWith("Bearer ")){
+        
+        String token = bearerToken.replace("Bearer ", "");
+        UsernamePasswordAuthenticationToken usernamePAT = TokensUtils.getAuthentication(token);
+        if(usernamePAT == null){
+              Map<String, String> body = new HashMap<>();
+              body.put("message", "El token JWT no es valido");
+
+              response.getWriter().write(new ObjectMapper().writeValueAsString(body));
+              response.setStatus(HttpStatus.UNAUTHORIZED.value());
+              response.setContentType("application/json");
+        } else {
+            SecurityContextHolder.getContext().setAuthentication(usernamePAT);
+        }
+
+        filterChain.doFilter(request, response);
+    } else {
         filterChain.doFilter(request, response);
         return;
     }
-      String token = bearerToken.replace("Bearer ", "");
-      UsernamePasswordAuthenticationToken usernamePAT = TokensUtils.getAuthentication(token);
-      if(usernamePAT == null){
-            Map<String, String> body = new HashMap<>();
-            body.put("message", "El token JWT no es valido");
-            
-            response.getWriter().write(new ObjectMapper().writeValueAsString(body));
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.setContentType("application/json");
-      } else {
-          SecurityContextHolder.getContext().setAuthentication(usernamePAT);
-      }
-    
-    filterChain.doFilter(request, response);
-  
   }
   
 }

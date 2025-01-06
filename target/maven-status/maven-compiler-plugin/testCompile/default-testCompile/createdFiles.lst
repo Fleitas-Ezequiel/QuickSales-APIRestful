@@ -1,0 +1,14 @@
+mySystem\QuickSales\service\ProductoServiceTest.class
+mySystem\QuickSales\service\ComprobanteServiceTest.class
+mySystem\QuickSales\service\RetiroServiceTest.class
+mySystem\QuickSales\QuickSalesApplicationTests.class
+mySystem\QuickSales\service\ProveedorServiceTest.class
+mySystem\QuickSales\service\MetodoVentaServiceTest.class
+mySystem\QuickSales\service\ClienteServiceTest.class
+mySystem\QuickSales\service\VentaServiceTest.class
+mySystem\QuickSales\service\CajaServiceTest.class
+mySystem\QuickSales\service\ContactoServiceTest.class
+mySystem\QuickSales\service\CtaCteServiceTest.class
+mySystem\QuickSales\service\PagoServiceTest.class
+mySystem\QuickSales\service\StockServiceTest.class
+mySystem\QuickSales\service\MetodoPagoServiceTest.class

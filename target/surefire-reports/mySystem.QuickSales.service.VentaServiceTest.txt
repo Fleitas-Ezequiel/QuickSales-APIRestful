@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: mySystem.QuickSales.service.VentaServiceTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in mySystem.QuickSales.service.VentaServiceTest
+Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in mySystem.QuickSales.service.VentaServiceTest
 testModificarVenta  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at mySystem.QuickSales.service.VentaServiceTest.testModificarVenta(VentaServiceTest.java:64)

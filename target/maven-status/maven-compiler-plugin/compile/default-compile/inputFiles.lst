@@ -1,79 +1,100 @@
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\ProveedorService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\ProveedorDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Venta.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\PagoService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\configuration\FormatoFecha.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\RetiroDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IClienteService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\MetodoPago.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Cliente.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\ComprobanteDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\ContactoService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IMetodoVentaService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IProductoService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\PagoRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\MetodoVentaService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\controller\ClienteController.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\VentaService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\controller\DepositoController.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\configuration\ModelMapperConfig.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\CtaCteDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IStockService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\ClienteService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\ConsumoDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Retiro.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\QuickSalesApplication.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\ICajaService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\ClienteRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IVentaService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\RetiroService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\DescuentoRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\StockRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\CajaRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\MetodoVentaDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\ComprobanteService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\MetodoVenta.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Stock.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IContactoService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\controller\CajaController.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\MetodoPagoDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Proveedor.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\VentaRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Producto.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\ContactoDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Consumo.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IProveedorService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Contacto.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IPagoService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IMetodoPagoService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\StockDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\ProductoRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\CtaCteRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\ProductoDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\CtaCteService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\MetodoPagoService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\ClienteDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\ContactoRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\controller\VentaController.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IDescuentoService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Pago.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Comprobante.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IRetiroService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Caja.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\MetodoVentaRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\PagoDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\CtaCte.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\controller\ProveedorController.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\CajaDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\DescuentoDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\StockService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\CajaService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\IComprobanteService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\iservice\ICtaCteService.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\DTO\VentaDTO.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\model\Descuento.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\RetiroRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\ComprobanteRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\ProveedorRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\repository\MetodoPagoRepository.java
-F:\Projects\QuickSalesAPI\src\main\java\mySystem\QuickSales\service\ProductoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Contacto.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\configuration\CorsConfig.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\UserDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\controller\ProveedorController.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\CtaCteRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\User.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IProveedorService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\ICajaService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\ProveedorDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\CtaCte.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\security\TokensUtils.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\configuration\DataInitializer.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\ClienteService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\ComprobanteDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\RoleRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\ConsumoDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\controller\CajaController.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Stock.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Proveedor.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\controller\DepositoController.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\ProductoDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\CajaRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\DescuentoRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\CajaService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\ComprobanteService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\RetiroRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\ClienteRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\VentaService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Venta.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Producto.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\RetiroDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\controller\UsuarioController.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Descuento.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IRetiroService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\ComprobanteRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Caja.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IStockService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\VentaDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\security\UserDetailServiceImpl.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\QuickSalesApplication.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\DescuentoDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\CtaCteService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\security\SimpleGrantedAuthorityJsonCreator.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\CtaCteDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IComprobanteService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Pago.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\MetodoPagoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Role.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\ProductoRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\MetodoPago.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IPagoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IRoleService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\UserService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IMetodoVentaService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\MetodoVentaDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\configuration\ModelMapperConfig.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\ContactoRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\PagoDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IMetodoPagoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IUserService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\PagoRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IDescuentoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\controller\ClienteController.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\ClienteDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\PagoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IContactoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\MetodoPagoRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\security\JWTAuthorizationFilter.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Consumo.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Comprobante.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\VentaRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\StockRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\ChangePasswordRequest.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\controller\AdminController.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\ContactoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\ProductoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\security\SecurityConfig.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\StockService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\controller\VentaController.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Cliente.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\MetodoPagoDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\Retiro.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\CreateUserRequest.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\ContactoDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IClienteService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\MetodoVentaRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\MetodoVentaService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\StockDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IVentaService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\UserRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\ICtaCteService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\iservice\IProductoService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\model\MetodoVenta.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\security\JWTAuthenticationFilter.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\RetiroService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\configuration\FormatoFecha.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\DTO\CajaDTO.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\repository\ProveedorRepository.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\ProveedorService.java
+E:\Users\Ezequiel\Documents\UTN\Segundo año\Segundo Cuatrimestre\Practicas Profesionalizantes\QuickSales-APIRestful\src\main\java\mySystem\QuickSales\service\RoleService.java

@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: mySystem.QuickSales.service.MetodoPagoServiceTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in mySystem.QuickSales.service.MetodoPagoServiceTest
+Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in mySystem.QuickSales.service.MetodoPagoServiceTest
 testRegistrarMetodoPago  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at mySystem.QuickSales.service.MetodoPagoServiceTest.testRegistrarMetodoPago(MetodoPagoServiceTest.java:51)
 
-testEliminarMetodoPago  Time elapsed: 0.001 s  <<< FAILURE!
+testEliminarMetodoPago  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at mySystem.QuickSales.service.MetodoPagoServiceTest.testEliminarMetodoPago(MetodoPagoServiceTest.java:77)
 
