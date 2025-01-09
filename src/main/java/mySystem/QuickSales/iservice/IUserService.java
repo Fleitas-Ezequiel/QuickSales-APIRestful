@@ -14,4 +14,5 @@ public interface IUserService{
     public List<UserDTO> listarUsuarios();
     public Optional<User> getCurrentUser();
     public void changePassword(String username, String newPassword);
+    public User getUserByUsername(String username);
 }

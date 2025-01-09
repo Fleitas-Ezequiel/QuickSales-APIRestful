@@ -3,7 +3,6 @@ package mySystem.QuickSales.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import mySystem.QuickSales.DTO.CreateUserRequest;
 import mySystem.QuickSales.DTO.UserDTO;
 import mySystem.QuickSales.iservice.IUserService;
@@ -48,12 +47,34 @@ public class UserService implements IUserService{
 
     @Override
     public void actualizarUsuario(User usuario) {
+        Optional<User> usuario_optional = getCurrentUser();
         
+        if(usuario_optional.isPresent()){
+            User user_data = usuario_optional.get();
+            if(user_data.getId_user() == usuario.getId_user()){
+                user_repo.save(usuario);
+            }   else {
+                System.out.println("El id no coincide con el usuario autenticado");
+            }
+        }   else {
+            System.out.println("Usuario no encontrado");
+        }
     }
 
     @Override
     public void eliminarUsuario(User usuario) {
-        user_repo.deleteById(usuario.getId_user());
+        Optional<User> usuario_optional = getCurrentUser();
+        
+        if(usuario_optional.isPresent()){
+            User user_data = usuario_optional.get();
+            if(user_data.getId_user() == usuario.getId_user()){
+                user_repo.deleteById(usuario.getId_user());
+            }   else {
+                System.out.println("El id no coincide con el usuario autenticado");
+            }
+        }   else {
+            System.out.println("Usuario no encontrado");
+        }
     }
 
     @Override
@@ -72,9 +93,8 @@ public class UserService implements IUserService{
     public Optional<User> getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         final String username = authentication.getName();
-
         // Buscar el usuario en la base de datos o en un repositorio
-        Optional<User> user = user_repo.findOneByEmail(username);
+        Optional<User> user = user_repo.findByUsername(username);
         
         return user;
     }
@@ -85,5 +105,15 @@ public class UserService implements IUserService{
                      .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         user.setPassword(password_encoder.encode(newPassword));
         user_repo.save(user);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        User usuario = new User();
+        Optional<User> user_optional = user_repo.findByUsername(username);
+        if(user_optional.isPresent()){
+          usuario = user_optional.get();
+        }
+        return usuario;
     }
 }

@@ -47,6 +47,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
     }
     
     String token = bearerToken.replace("Bearer ", "");
+    
     try{
         Claims claims = Jwts.parser()
                 .verifyWith(ACCESS_TOKEN_SECRET)

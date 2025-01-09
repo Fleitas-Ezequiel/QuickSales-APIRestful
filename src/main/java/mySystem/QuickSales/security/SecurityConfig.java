@@ -17,9 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     
-//    private final UserDetailsService userDetailsService;  //Administrador de credenciales de usuario
-//    private final JWTAuthorizationFilter jwtAuthorizationFilter;
-    
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
     
@@ -31,13 +28,11 @@ public class SecurityConfig {
     @Bean
     //filtros de seguridad, se encarga de manejar las solicitudes de autenticación y autorización en la aplicación
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//      JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter(authManager());
-//      jwtAuthenticationFilter.setAuthenticationManager(authManager());
-//      jwtAuthenticationFilter.setFilterProcessesUrl("/login"); //Establecemos la ruta para el inicio de sesion
 
       return http.authorizeHttpRequests( (authz) -> authz
               .requestMatchers(HttpMethod.GET,"/user/list").permitAll()
               .requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN")
+              .requestMatchers(HttpMethod.POST, "/").hasAnyRole("ADMIN","")
               .anyRequest().authenticated())
               .addFilter(new JWTAuthenticationFilter(authManager()))
               .addFilter(new JWTAuthorizationFilter(authManager()))
@@ -45,28 +40,6 @@ public class SecurityConfig {
               .cors().and()
               .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
               .build();
-      
-//      return http
-//              .cors()
-//              .and()
-//              .csrf().disable()         //desabilitamos el  cross site request forgery
-//              .authorizeHttpRequests()      //reglas de solicitudes
-//              .requestMatchers("/user/**").permitAll() //habilitacion de registro/login de un usuario y permitimos cualquier solicitud que ingrese a la api
-//              .requestMatchers("/admin/**").hasRole("ADMIN")
-//              .requestMatchers("/ventas/**").hasRole("VENDEDOR")
-//              .requestMatchers("/deposito/**").hasRole("REPOSITOR")
-//              .requestMatchers("/proveedores/**").hasRole("COMPRADOR")
-//              .anyRequest()
-//              .authenticated()          //debe estar autenticada
-//              .and()
-//              .httpBasic()
-//              .and()                    //y ademas
-//              .sessionManagement()      //la gestion de sesiones
-//              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)   //politica de gestion de sesiones STATELESSS, osea sin estado
-//              .and()      
-//              .addFilter(new JWTAuthenticationFilter(authManager()))  //agregamos un filtro
-////              .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-//              .build();                 //construir el security filter chain
     }
     
     //Implementacion de password encoder

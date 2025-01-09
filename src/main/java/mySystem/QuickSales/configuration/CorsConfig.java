@@ -15,11 +15,11 @@ public class CorsConfig {
       public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/login")//Mapeamos la ruta que nos permite logearnos
                 .allowedOrigins("*")
-                .allowedMethods("*")
+                .allowedMethods("POST")
                 .exposedHeaders("*");
         
         registry.addMapping("/**")//Mapeamos la ruta que nos devuelve un listado de personas
-                .allowedOrigins("*")
+                .allowedOrigins("http://localhost:3000")
                 .allowedMethods("*");
       }
     };

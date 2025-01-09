@@ -28,7 +28,6 @@ public class DataInitializer {
     public void init() {
         // Crear roles iniciales
         Role adminRole = roleService.createRoleIfNotExists("ROLE_ADMIN");
-        Role vendedorRole = roleService.createRoleIfNotExists("ROLE_VENDEDOR");
 
         // Crear usuario root si no existe
         if (!userRepository.existsByUsername("root")) {
