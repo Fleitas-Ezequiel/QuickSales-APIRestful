@@ -32,7 +32,10 @@ public class SecurityConfig {
       return http.authorizeHttpRequests( (authz) -> authz
               .requestMatchers(HttpMethod.GET,"/user/list").permitAll()
               .requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN")
-              .requestMatchers(HttpMethod.POST, "/").hasAnyRole("ADMIN","")
+              .requestMatchers("/proveedores/**").hasAnyRole("ADMIN","COMPRADOR")
+              .requestMatchers("/ventas/**").hasAnyRole("ADMIN","VENDEDOR")
+              .requestMatchers("/caja/**").hasAnyRole("ADMIN","CONTADOR")
+              .requestMatchers("/deposito/**").hasAnyRole("ADMIN","REPOSITOR")
               .anyRequest().authenticated())
               .addFilter(new JWTAuthenticationFilter(authManager()))
               .addFilter(new JWTAuthorizationFilter(authManager()))
