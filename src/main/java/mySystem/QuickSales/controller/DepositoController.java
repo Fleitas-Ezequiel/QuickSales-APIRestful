@@ -23,7 +23,7 @@ public class DepositoController {
   @Autowired
   private IStockService depositoService;
   
-  @PostMapping("/registry")
+  @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<String> registrarDeposito(@RequestBody List<StockDTO> depositos){
     try {
