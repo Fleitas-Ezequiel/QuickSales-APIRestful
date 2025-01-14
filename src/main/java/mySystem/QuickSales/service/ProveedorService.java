@@ -33,8 +33,9 @@ public class ProveedorService implements IProveedorService{
       Proveedor p = modelMapper.map(proveedor_dto, Proveedor.class);
       proveedorRepo.save(p);
       
-      if(!proveedor_dto.getContacto_dto().isEmpty()){
+      if(!proveedor_dto.getContacto_dto().isEmpty() || proveedor_dto.getContacto_dto()!= null){
         for(ContactoDTO c : proveedor_dto.getContacto_dto()){
+          c.setProveedor(p);
           contactoService.registrarContacto(c);
         }
       }
