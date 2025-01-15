@@ -28,7 +28,6 @@ public class ProveedorController {
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<String> registrarProveedor(@RequestBody ProveedorDTO proveedor){
     try {
-      System.out.println("Contactos de lado del cliente: "+proveedor.getContacto_dto());
       proveedorService.registrarProveedor(proveedor);
       return ResponseEntity.ok("Registro exitoso");
     } catch (Exception e) {

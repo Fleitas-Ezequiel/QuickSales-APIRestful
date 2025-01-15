@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import mySystem.QuickSales.DTO.ContactoDTO;
 import mySystem.QuickSales.DTO.ProveedorDTO;
+import mySystem.QuickSales.model.Contacto;
 import mySystem.QuickSales.model.Proveedor;
 import mySystem.QuickSales.repository.ProveedorRepository;
 import org.modelmapper.ModelMapper;
@@ -30,15 +31,17 @@ public class ProveedorService implements IProveedorService{
   @Override
   public void registrarProveedor(ProveedorDTO proveedor_dto) {
     try {
-      Proveedor p = modelMapper.map(proveedor_dto, Proveedor.class);
-      proveedorRepo.save(p);
-      
+      Proveedor proveedor = modelMapper.map(proveedor_dto, Proveedor.class);
+      List<Contacto> contacto_list = new ArrayList<>();
       if(!proveedor_dto.getContacto_dto().isEmpty() || proveedor_dto.getContacto_dto()!= null){
-        for(ContactoDTO c : proveedor_dto.getContacto_dto()){
-          c.setProveedor(p);
-          contactoService.registrarContacto(c);
+        for(ContactoDTO c_dto: proveedor_dto.getContacto_dto()){
+          Contacto c = modelMapper.map(c_dto, Contacto.class);
+          c.setProveedor(proveedor);
+          contacto_list.add(c);
         }
       }
+      proveedor.setContacto(contacto_list);
+      proveedorRepo.save(proveedor);
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
