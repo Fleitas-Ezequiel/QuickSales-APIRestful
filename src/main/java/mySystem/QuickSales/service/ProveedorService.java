@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import mySystem.QuickSales.DTO.ContactoDTO;
 import mySystem.QuickSales.DTO.ProveedorDTO;
 import mySystem.QuickSales.model.Contacto;
@@ -13,6 +14,8 @@ import mySystem.QuickSales.model.Proveedor;
 import mySystem.QuickSales.repository.ProveedorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -104,6 +107,24 @@ public class ProveedorService implements IProveedorService{
     }
     return lista;
   }
+
+    @Override
+    public Page<ProveedorDTO> paginarProveedores(Pageable pageable) {
+        Page<Proveedor> proveedor = proveedorRepo.findAll(pageable);
+        return proveedor.map((provider)-> {
+            ProveedorDTO proveedor_dto = modelMapper.map(provider, ProveedorDTO.class);
+            if(!provider.getContacto().isEmpty()){
+                List<ContactoDTO> lista_contacto = new ArrayList();
+                for(Contacto c: provider.getContacto()){
+                    ContactoDTO contacto_dto = modelMapper.map(c, ContactoDTO.class);
+                    lista_contacto.add(contacto_dto);
+                }
+                proveedor_dto.setContacto_dto(lista_contacto);
+            }
+            return proveedor_dto;
+        });
+        
+    }
 
   
   
