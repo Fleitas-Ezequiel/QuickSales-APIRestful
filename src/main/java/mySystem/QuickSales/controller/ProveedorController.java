@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,11 +51,11 @@ public class ProveedorController {
   }
   
   
-  @DeleteMapping("/delete")
+  @DeleteMapping("/delete/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<String> eliminarProveedor(@RequestBody ProveedorDTO proveedor){
+  public ResponseEntity<String> eliminarProveedor(@PathVariable int id){
     try {
-      proveedorService.eliminarProveedor(proveedor);
+      proveedorService.eliminarProveedor(id);
       return ResponseEntity.ok("Proveedor eliminado con exito");
     } catch (Exception e) {
       return ResponseEntity.badRequest().body("Error al eliminar el proveedor");

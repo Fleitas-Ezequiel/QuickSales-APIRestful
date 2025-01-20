@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface IProveedorService {
   public void registrarProveedor(ProveedorDTO proveedor);
   public void modificarProveedor(ProveedorDTO proveedor);
-  public void eliminarProveedor(ProveedorDTO proveedor);
+  public void eliminarProveedor(int id_proveedor);
   public List<ProveedorDTO> verProveedor();
   public List<ProveedorDTO> verProveedoresFiltrado(String filtrado);
   public Page paginarProveedores(Pageable pageable);

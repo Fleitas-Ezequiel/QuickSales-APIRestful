@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package mySystem.QuickSales.service;
 
 import java.util.List;
@@ -70,9 +66,9 @@ public class ProveedorServiceTest {
     @Test
     public void testEliminarProveedor() {
         System.out.println("eliminarProveedor");
-        ProveedorDTO proveedor = null;
+        int id_proveedor = -1;
         ProveedorService instance = new ProveedorService();
-        instance.eliminarProveedor(proveedor);
+        instance.eliminarProveedor(id_proveedor);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

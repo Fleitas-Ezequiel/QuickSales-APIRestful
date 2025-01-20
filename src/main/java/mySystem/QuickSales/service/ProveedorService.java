@@ -70,11 +70,11 @@ public class ProveedorService implements IProveedorService{
   
   @Transactional
   @Override
-  public void eliminarProveedor(ProveedorDTO proveedor_dto) {
+  public void eliminarProveedor(int id_proveedor) {
     try {
-      Optional<Proveedor> prov = proveedorRepo.findById(proveedor_dto.getId());
+      Optional<Proveedor> prov = proveedorRepo.findById(id_proveedor);
       if(prov.isPresent()){
-        proveedorRepo.deleteById(proveedor_dto.getId());
+        proveedorRepo.deleteById(id_proveedor);
       }
     } catch (Exception e) {
       System.err.println(e.getMessage());
