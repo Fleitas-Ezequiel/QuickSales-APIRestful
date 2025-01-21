@@ -6,7 +6,6 @@ import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import mySystem.QuickSales.DTO.ContactoDTO;
 import mySystem.QuickSales.DTO.ProveedorDTO;
 import mySystem.QuickSales.model.Contacto;
@@ -64,7 +63,7 @@ public class ProveedorService implements IProveedorService{
         proveedorRepo.save(p);
       }
     } catch (Exception e) {
-      System.err.println(e.getMessage());
+      System.err.println("Error del lado del service \n"+e.getMessage());
     }
   }
   

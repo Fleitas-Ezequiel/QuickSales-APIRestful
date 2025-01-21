@@ -1,5 +1,6 @@
 package mySystem.QuickSales.service;
 
+import java.text.ParseException;
 import mySystem.QuickSales.iservice.IContactoService;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,12 +44,14 @@ public class ContactoService implements IContactoService{
       Optional<Contacto> con = contactoRepo.findById(contacto_dto.getId());
       if(con.isPresent()){
         Contacto contacto = modelMapper.map(con.get(), Contacto.class);
-        if(contacto.getTipo().equalsIgnoreCase("telefono") && contacto.getValor().equals("\\d+")){
+          System.out.println("Tipo: "+contacto.getTipo()+"\n Valor: "+contacto.getValor());
+        if(contacto.getTipo().equalsIgnoreCase("telefono")){
+//          int numero_telefono = Integer.parseInt(contacto.getValor());
           contactoRepo.save(contacto);
         } else if (contacto.getTipo().equalsIgnoreCase("email")){
             contactoRepo.save(contacto);
         } else {
-            System.err.println("Error de registro");
+            System.err.println("Error de actualizacion");
         }
       }
     } catch (Exception e) {
