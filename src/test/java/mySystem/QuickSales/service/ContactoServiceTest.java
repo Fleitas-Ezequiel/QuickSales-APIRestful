@@ -68,11 +68,10 @@ public class ContactoServiceTest {
      * Test of eliminarContacto method, of class ContactoService.
      */
     @Test
-    public void testEliminarContacto() {
+    public void testEliminarContacto(int id_contacto) {
         System.out.println("eliminarContacto");
-        ContactoDTO contacto = null;
         ContactoService instance = new ContactoService();
-        instance.eliminarContacto(contacto);
+        instance.eliminarContacto(id_contacto);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

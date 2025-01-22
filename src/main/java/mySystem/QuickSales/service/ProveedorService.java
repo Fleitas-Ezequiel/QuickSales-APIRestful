@@ -53,18 +53,51 @@ public class ProveedorService implements IProveedorService{
   @Override
   public void modificarProveedor(ProveedorDTO proveedor_dto) {
     try {
-      Optional<Proveedor> prov = proveedorRepo.findById(proveedor_dto.getId());
-      if(prov.isPresent()){
-        Proveedor p = modelMapper.map(proveedor_dto, Proveedor.class);
-
-        for(ContactoDTO c : proveedor_dto.getContacto_dto()){
-            contactoService.actualizarContacto(c);
+      Optional<Proveedor> proveedor_optional = proveedorRepo.findById(proveedor_dto.getId());
+      if(proveedor_optional.isPresent()){
+        Proveedor proveedor = proveedor_optional.get();
+        proveedor.setNombre(proveedor_dto.getNombre());
+        proveedor.setCuit(proveedor_dto.getCuit());
+        
+        eliminarContacto(proveedor.getContacto(), proveedor_dto.getContacto_dto());
+        
+        List<Contacto> contacto_list = new ArrayList();
+        proveedor.setContacto(contacto_list);
+        for(ContactoDTO contacto_dto: proveedor_dto.getContacto_dto()){
+          Contacto contacto = new Contacto();
+          if(!contacto_dto.getValor().isBlank() && !contacto_dto.getValor().isEmpty()){
+            contacto.setId_contacto(contacto_dto.getId());
+            contacto.setTipo(contacto_dto.getTipo());
+            contacto.setValor(contacto_dto.getValor());
+            contacto.setProveedor(proveedor);
+            
+            contacto_list.add(contacto);
+          } else if(contacto_dto.getValor().isBlank()){
+            contactoService.eliminarContacto(contacto_dto.getId());
+          }
         }
-        proveedorRepo.save(p);
+        proveedorRepo.save(proveedor);
       }
     } catch (Exception e) {
       System.err.println("Error del lado del service \n"+e.getMessage());
     }
+  }
+  
+  private void eliminarContacto(List<Contacto> contacto_list, List<ContactoDTO> contacto_dto_list){
+    for(Contacto contacto: contacto_list){
+      if(!contactoExiste(contacto, contacto_dto_list)){
+        contactoService.eliminarContacto(contacto.getId_contacto());
+      }
+    }
+  }
+  
+  private boolean contactoExiste(Contacto contacto, List<ContactoDTO> array){
+    for(ContactoDTO contacto_dto: array){
+      if(contacto.getId_contacto() == contacto_dto.getId()){
+        return true;
+      }
+    }
+    return false;
   }
   
   @Transactional
@@ -109,22 +142,18 @@ public class ProveedorService implements IProveedorService{
 
     @Override
     public Page<ProveedorDTO> paginarProveedores(Pageable pageable) {
-        Page<Proveedor> proveedor = proveedorRepo.findAll(pageable);
-        return proveedor.map((provider)-> {
-            ProveedorDTO proveedor_dto = modelMapper.map(provider, ProveedorDTO.class);
-            if(!provider.getContacto().isEmpty()){
-                List<ContactoDTO> lista_contacto = new ArrayList();
-                for(Contacto c: provider.getContacto()){
-                    ContactoDTO contacto_dto = modelMapper.map(c, ContactoDTO.class);
-                    lista_contacto.add(contacto_dto);
-                }
-                proveedor_dto.setContacto_dto(lista_contacto);
-            }
-            return proveedor_dto;
-        });
-        
+      Page<Proveedor> proveedor = proveedorRepo.findAll(pageable);
+      return proveedor.map((provider)-> {
+        ProveedorDTO proveedor_dto = modelMapper.map(provider, ProveedorDTO.class);
+        if(!provider.getContacto().isEmpty()){
+          List<ContactoDTO> lista_contacto = new ArrayList();
+          for(Contacto c: provider.getContacto()){
+            ContactoDTO contacto_dto = modelMapper.map(c, ContactoDTO.class);
+            lista_contacto.add(contacto_dto);
+          }
+          proveedor_dto.setContacto_dto(lista_contacto);
+        }
+        return proveedor_dto;
+      });
     }
-
-  
-  
 }
