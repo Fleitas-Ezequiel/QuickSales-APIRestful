@@ -33,6 +33,7 @@ public class SecurityConfig {
               .requestMatchers(HttpMethod.GET,"/user/list").permitAll()
               .requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN")
               .requestMatchers("/proveedores/**").hasAnyRole("ADMIN","COMPRADOR")
+              .requestMatchers("/comprobantes/**").hasAnyRole("ADMIN","COMPRADOR","CONTADOR")
               .requestMatchers("/ventas/**").hasAnyRole("ADMIN","VENDEDOR")
               .requestMatchers("/caja/**").hasAnyRole("ADMIN","CONTADOR")
               .requestMatchers("/deposito/**").hasAnyRole("ADMIN","REPOSITOR")

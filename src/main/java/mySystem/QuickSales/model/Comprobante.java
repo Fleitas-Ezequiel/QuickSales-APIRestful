@@ -24,9 +24,9 @@ import lombok.NoArgsConstructor;
 public class Comprobante {
   @Id
   @Column(
-          name = "id_comprobante",
-          length = 30,
-          nullable = false
+    name = "id_comprobante",
+    length = 30,
+    nullable = false
   )
   private String id;
   

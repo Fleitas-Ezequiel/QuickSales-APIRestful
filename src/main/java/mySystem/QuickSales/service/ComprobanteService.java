@@ -10,6 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import mySystem.QuickSales.repository.ComprobanteRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class ComprobanteService implements IComprobanteService{
@@ -62,5 +64,14 @@ public class ComprobanteService implements IComprobanteService{
       lista.add(modelMapper.map(c, ComprobanteDTO.class));
     }
     return lista;
+  }
+
+  @Override
+  public Page<ComprobanteDTO> paginarComprobantes(Pageable pageable) {
+    Page<Comprobante> comprobantes = boleta_repo.findAll(pageable);
+    return comprobantes.map((comprobante)-> {
+      ComprobanteDTO comprobante_dto = modelMapper.map(comprobante, ComprobanteDTO.class);
+      return comprobante_dto;
+    });
   }
 }
