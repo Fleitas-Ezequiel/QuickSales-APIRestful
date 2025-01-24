@@ -10,5 +10,5 @@ public interface IComprobanteService {
   public void actualizarComprobante(ComprobanteDTO boleta);
   public void eliminarComprobante(ComprobanteDTO boleta);
   public List<ComprobanteDTO> verComprobantes();
-  public Page<ComprobanteDTO> paginarComprobantes(Pageable pageable);
+  public Page paginarComprobantes(Pageable pageable);
 }

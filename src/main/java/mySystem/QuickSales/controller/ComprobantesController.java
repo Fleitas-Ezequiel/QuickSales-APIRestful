@@ -34,13 +34,12 @@ public class ComprobantesController {
       comprobanteService.registrarComprobante(comprobante_dto);
       return ResponseEntity.ok("Comprobante registrado correctamente");
     } catch (Exception e) {
-      return ResponseEntity.badRequest().body(e.getMessage());
+      return ResponseEntity.badRequest().body("Error de Registro de comprobante \n"+e.getMessage());
     }
   }
   
   @GetMapping("/pagina")
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public Page registrarComprobante(@PageableDefault(page = 0, size = 10) Pageable pageable){
     return comprobanteService.paginarComprobantes(pageable);
   }
