@@ -9,8 +9,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,12 +31,12 @@ public class Comprobante {
   private String id;
   
   private String tipo;
-  private Date fecha_emision;
+  private LocalDate fecha_emision;
   private float importe;
   private String estado;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor")
+  @JoinColumn(name = "id_proveedor", referencedColumnName = "id_proveedor", nullable = false)
   private Proveedor proveedor;
   
   @OneToMany(mappedBy = "comprobante", cascade = CascadeType.ALL, orphanRemoval = true)

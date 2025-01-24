@@ -62,9 +62,9 @@ public class ComprobanteServiceTest {
     @Test
     public void testEliminarBoleta() {
         System.out.println("eliminarBoleta");
-        ComprobanteDTO boleta = null;
+        String id_comprobante = "";
         ComprobanteService instance = new ComprobanteService();
-        instance.eliminarComprobante(boleta);
+        instance.eliminarComprobante(id_comprobante);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

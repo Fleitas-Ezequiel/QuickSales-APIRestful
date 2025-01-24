@@ -156,4 +156,9 @@ public class ProveedorService implements IProveedorService{
         return proveedor_dto;
       });
     }
+
+  @Override
+  public Optional<Proveedor> findByID(int id_proveedor) { 
+    return proveedorRepo.findById(id_proveedor);
+  }
 }

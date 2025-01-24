@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import mySystem.QuickSales.DTO.ComprobanteDTO;
+import mySystem.QuickSales.DTO.ProveedorDTO;
+import mySystem.QuickSales.iservice.IProveedorService;
 import mySystem.QuickSales.model.Comprobante;
+import mySystem.QuickSales.model.Proveedor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,9 @@ public class ComprobanteService implements IComprobanteService{
   
   @Autowired
   private ComprobanteRepository boleta_repo;
+  
+  @Autowired
+  private IProveedorService proveedorService;
 
   @Autowired
   private ModelMapper modelMapper;
@@ -26,34 +32,46 @@ public class ComprobanteService implements IComprobanteService{
   public void registrarComprobante(ComprobanteDTO comprobante_dto) {
     try {
       Comprobante comprobante = modelMapper.map(comprobante_dto, Comprobante.class);
-      boleta_repo.save(comprobante);
+      Optional<Proveedor> proveedor = proveedorService.findByID(comprobante_dto.getProveedor_dto().getId());
+      if(proveedor.isPresent()){
+        comprobante.setProveedor(proveedor.get());
+        boleta_repo.save(comprobante);
+      } else {
+        System.out.println("No se encontro el proveedor del comprobante");
+      }
     } catch (Exception e) {
-      System.err.println(e.getMessage());
+      System.err.println("Error en el registro del comprobante \n"+e.getMessage());
     }
   }
 
   @Override
   public void actualizarComprobante(ComprobanteDTO comprobante_dto) {
     try {
-      Optional<Comprobante> comprobante = boleta_repo.findById(comprobante_dto.getId());
-      if(comprobante.isPresent()){
-        Comprobante boleta_proveedor = modelMapper.map(comprobante_dto, Comprobante.class);
-        boleta_repo.save(boleta_proveedor);
+      Optional<Comprobante> comprobante_optional = boleta_repo.findById(comprobante_dto.getId());
+      if(comprobante_optional.isPresent()){
+        Comprobante comprobante = modelMapper.map(comprobante_dto, Comprobante.class);
+        Optional<Proveedor> proveedor = proveedorService.findByID(comprobante_dto.getProveedor_dto().getId());
+        if(proveedor.isPresent()){
+          comprobante.setProveedor(proveedor.get());
+          boleta_repo.save(comprobante);
+        } else {
+          System.out.println("No se encontro el proveedor del comprobante");
+        }
       }
     } catch (Exception e) {
-      System.err.println(e.getMessage());
+      System.err.println("Error en la actualizacion del comprobante \n"+e.getMessage());
     }
   }
 
   @Override
-  public void eliminarComprobante(ComprobanteDTO comprobante_dto) {
+  public void eliminarComprobante(String id_comprobante) {
     try {
-      Optional<Comprobante> comprobante = boleta_repo.findById(comprobante_dto.getId());
+      Optional<Comprobante> comprobante = boleta_repo.findById(id_comprobante);
       if(comprobante.isPresent()){
         boleta_repo.deleteById(comprobante.get().getId());
       }
     } catch (Exception e) {
-      System.err.println(e.getMessage());
+      System.err.println("Error en la eliminacion del comprobante \n"+e.getMessage());
     }
   }
 
@@ -61,7 +79,10 @@ public class ComprobanteService implements IComprobanteService{
   public List<ComprobanteDTO> verComprobantes() {
     List<ComprobanteDTO> lista = new ArrayList();
     for(Comprobante c : boleta_repo.findAll()){
-      lista.add(modelMapper.map(c, ComprobanteDTO.class));
+      ProveedorDTO proveedor_dto = modelMapper.map(c.getProveedor(), ProveedorDTO.class);
+      ComprobanteDTO comprobante_dto = modelMapper.map(c, ComprobanteDTO.class);
+      comprobante_dto.setProveedor_dto(proveedor_dto);
+      lista.add(comprobante_dto);
     }
     return lista;
   }
@@ -70,8 +91,16 @@ public class ComprobanteService implements IComprobanteService{
   public Page<ComprobanteDTO> paginarComprobantes(Pageable pageable) {
     Page<Comprobante> comprobantes = boleta_repo.findAll(pageable);
     return comprobantes.map((comprobante)-> {
+      ProveedorDTO proveedor_dto = modelMapper.map(comprobante.getProveedor(), ProveedorDTO.class);
       ComprobanteDTO comprobante_dto = modelMapper.map(comprobante, ComprobanteDTO.class);
+      comprobante_dto.setProveedor_dto(proveedor_dto);
       return comprobante_dto;
     });
+  }
+
+  @Override
+  public Optional<Comprobante> findComprobanteById(String id_comprobante) {
+   Optional<Comprobante> comprobante_optional = boleta_repo.findById(id_comprobante);
+   return comprobante_optional;
   }
 }
