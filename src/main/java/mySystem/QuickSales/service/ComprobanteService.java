@@ -50,13 +50,17 @@ public class ComprobanteService implements IComprobanteService{
       Optional<Comprobante> comprobante_optional = boleta_repo.findById(comprobante_dto.getId());
       if(comprobante_optional.isPresent()){
         Comprobante comprobante = modelMapper.map(comprobante_dto, Comprobante.class);
-        Optional<Proveedor> proveedor = proveedorService.findByID(comprobante_dto.getProveedor_dto().getId());
-        if(proveedor.isPresent()){
-          comprobante.setProveedor(proveedor.get());
-          boleta_repo.save(comprobante);
-        } else {
-          System.out.println("No se encontro el proveedor del comprobante");
-        }
+          try {
+            Optional<Proveedor> proveedor = proveedorService.findByID(comprobante_dto.getProveedor_dto().getId());
+            if(proveedor.isPresent()){
+              comprobante.setProveedor(proveedor.get());
+              boleta_repo.save(comprobante);
+            } else {
+              System.out.println("No se encontro el proveedor del comprobante");
+            }
+          } catch (Exception e) {
+              System.err.println("Error en la busqueda del proveedor \n"+e.getMessage());
+          }
       }
     } catch (Exception e) {
       System.err.println("Error en la actualizacion del comprobante \n"+e.getMessage());

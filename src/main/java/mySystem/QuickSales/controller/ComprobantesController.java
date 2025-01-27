@@ -35,8 +35,12 @@ public class ComprobantesController {
   public ResponseEntity<String> registrarComprobante(@RequestBody ComprobanteDTO comprobante_dto){
     try {
       if(comprobanteService.findComprobanteById(comprobante_dto.getId()).isEmpty()){
-        comprobanteService.registrarComprobante(comprobante_dto);
-        return ResponseEntity.ok("Comprobante registrado correctamente");
+        if(comprobante_dto.getProveedor_dto().getId() != 0){
+          comprobanteService.registrarComprobante(comprobante_dto);
+          return ResponseEntity.ok("Comprobante registrado correctamente");
+        } else {
+          return ResponseEntity.badRequest().body("Debe ingresar un proveedor registrado");
+        }
       } else {
         return ResponseEntity.badRequest().body("El ID de comprobante ya esta registrado");
       }
