@@ -53,6 +53,7 @@ public class ComprobanteService implements IComprobanteService{
           try {
             Optional<Proveedor> proveedor = proveedorService.findByID(comprobante_dto.getProveedor_dto().getId());
             if(proveedor.isPresent()){
+              System.out.println("Proveedor: "+proveedor.get().getNombre());
               comprobante.setProveedor(proveedor.get());
               boleta_repo.save(comprobante);
             } else {
