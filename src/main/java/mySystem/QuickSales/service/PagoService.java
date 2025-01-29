@@ -4,22 +4,20 @@ import mySystem.QuickSales.iservice.IPagoService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import mySystem.QuickSales.DTO.MetodoPagoDTO;
 import mySystem.QuickSales.DTO.PagoDTO;
 import mySystem.QuickSales.model.Pago;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import mySystem.QuickSales.repository.PagoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class PagoService implements IPagoService{
 
   @Autowired
   private PagoRepository pago_proveedor_repo;
-  
-  @Autowired
-  private MetodoPagoService metodo_pago_service;
   
   @Autowired
   private ModelMapper modelMapper;
@@ -29,11 +27,6 @@ public class PagoService implements IPagoService{
     try {
       Pago pp = modelMapper.map(pago_dto, Pago.class);
       pago_proveedor_repo.save(pp);
-      if(!pago_dto.getMetodo_pago_dto().isEmpty()){
-          for(MetodoPagoDTO mp: pago_dto.getMetodo_pago_dto() ){
-              metodo_pago_service.registrarMetodoPago(mp);
-          }
-      }
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }
@@ -53,9 +46,9 @@ public class PagoService implements IPagoService{
   }
 
   @Override
-  public void eliminarPagoProveedor(PagoDTO pago_dto) {
+  public void eliminarPagoProveedor(int id_pago) {
     try {
-      Optional<Pago> pp = pago_proveedor_repo.findById(pago_dto.getId());
+      Optional<Pago> pp = pago_proveedor_repo.findById(id_pago);
       if(pp.isPresent()){
         pago_proveedor_repo.deleteById(pp.get().getId_pago());
       }
@@ -71,6 +64,15 @@ public class PagoService implements IPagoService{
       lista.add(modelMapper.map(pp, PagoDTO.class));
     }
     return lista;
+  }
+
+  @Override
+  public Page<PagoDTO> paginarPago(Pageable pageable) {
+    Page<Pago> pagos = pago_proveedor_repo.findAll(pageable);
+    return pagos.map( (pago)-> {
+      PagoDTO pago_dto = modelMapper.map(pago, PagoDTO.class);
+      return pago_dto;
+    });
   }
   
   

@@ -70,7 +70,7 @@ public class PagoServiceTest {
     @Test
     public void testEliminarPagoProveedor() {
         System.out.println("eliminarPagoProveedor");
-        PagoDTO pago = null;
+        int pago = 0;
         PagoService instance = new PagoService();
         instance.eliminarPagoProveedor(pago);
         // TODO review the generated test code and remove the default call to fail.
