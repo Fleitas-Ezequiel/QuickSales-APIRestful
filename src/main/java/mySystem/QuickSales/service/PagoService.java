@@ -25,8 +25,9 @@ public class PagoService implements IPagoService{
   @Override
   public void registrarPagoProveedor(PagoDTO pago_dto) {
     try {
-      Pago pp = modelMapper.map(pago_dto, Pago.class);
-      pago_proveedor_repo.save(pp);
+      Pago pago = modelMapper.map(pago_dto, Pago.class);
+     
+      pago_proveedor_repo.save(pago);
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }
@@ -35,9 +36,9 @@ public class PagoService implements IPagoService{
   @Override
   public void actualizrPagoProveedor(PagoDTO pago_dto) {
     try {
-      Optional<Pago> pp = pago_proveedor_repo.findById(pago_dto.getId());
-      if(pp.isPresent()){
-        Pago pago_prov = modelMapper.map(pp, Pago.class);
+      Optional<Pago> pago = pago_proveedor_repo.findById(pago_dto.getId());
+      if(pago.isPresent()){
+        Pago pago_prov = modelMapper.map(pago, Pago.class);
         pago_proveedor_repo.save(pago_prov);
       }
     } catch (Exception e) {
@@ -48,9 +49,9 @@ public class PagoService implements IPagoService{
   @Override
   public void eliminarPagoProveedor(int id_pago) {
     try {
-      Optional<Pago> pp = pago_proveedor_repo.findById(id_pago);
-      if(pp.isPresent()){
-        pago_proveedor_repo.deleteById(pp.get().getId_pago());
+      Optional<Pago> pago = pago_proveedor_repo.findById(id_pago);
+      if(pago.isPresent()){
+        pago_proveedor_repo.deleteById(pago.get().getId_pago());
       }
     } catch (Exception e) {
       System.err.println(e.getMessage());
@@ -60,8 +61,8 @@ public class PagoService implements IPagoService{
   @Override
   public List<PagoDTO> verPagoProveedor() {
     List<PagoDTO> lista = new ArrayList();
-    for(Pago pp : pago_proveedor_repo.findAll()){
-      lista.add(modelMapper.map(pp, PagoDTO.class));
+    for(Pago pago : pago_proveedor_repo.findAll()){
+      lista.add(modelMapper.map(pago, PagoDTO.class));
     }
     return lista;
   }

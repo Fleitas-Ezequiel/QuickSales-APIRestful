@@ -15,4 +15,5 @@ public class PagoDTO implements Serializable{
   private float importe;
   private String detalle;
   private String tipo;
+  private ComprobanteDTO comprobante;
 }
