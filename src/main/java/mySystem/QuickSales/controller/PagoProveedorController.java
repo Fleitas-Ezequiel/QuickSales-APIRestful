@@ -37,7 +37,7 @@ public class PagoProveedorController {
       pagoService.registrarPagoProveedor(Pago);
       return ResponseEntity.ok("Registro exitoso");
     } catch (Exception e) {
-      return ResponseEntity.badRequest().body("Error al registrar el Pago");
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
   

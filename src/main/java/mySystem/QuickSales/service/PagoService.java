@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import mySystem.QuickSales.DTO.PagoDTO;
+import mySystem.QuickSales.configuration.CustomException;
 import mySystem.QuickSales.iservice.IComprobanteService;
 import mySystem.QuickSales.model.Comprobante;
 import mySystem.QuickSales.model.Pago;
@@ -30,28 +31,31 @@ public class PagoService implements IPagoService{
 
   @Override
   public void registrarPagoProveedor(PagoDTO pago_dto) {
-    try {
-      Pago pago = modelMapper.map(pago_dto, Pago.class);
-      Optional<Comprobante> comprobante = comprobante_service.findComprobanteById(pago_dto.getComprobante().getId());
-      if(comprobante.isPresent()){
-        pago.setFecha(new Date());
-        if(pagoPrevio(comprobante.get().getId()) > 0){
-          Double pago_actual = pago_dto.getImporte() + pagoPrevio(comprobante.get().getId());
-          if(pago_actual < comprobante.get().getImporte() || pago_actual == comprobante.get().getImporte()){
-            pago_proveedor_repo.save(pago);
-          }
-        } else {
+    Pago pago = modelMapper.map(pago_dto, Pago.class);
+    Optional<Comprobante> comprobante = comprobante_service.findComprobanteById(pago_dto.getComprobante().getId());
+    if(comprobante.isPresent()){
+      pago.setFecha(new Date());
+      if(pagoPrevio(comprobante.get().getId()) > 0){
+        Double pago_actual = pago_dto.getImporte() + pagoPrevio(comprobante.get().getId());
+        if(pago_actual <= comprobante.get().getImporte()){
           pago_proveedor_repo.save(pago);
+        } else {
+            throw new CustomException("La suma de los pagos excede el importe total");
+        }
+      } else {
+        if(pago_dto.getImporte() <= comprobante.get().getImporte()){
+          pago_proveedor_repo.save(pago);
+        } else {
+            System.err.println("Pago excedido");
+            throw new CustomException("El pago es mayor al importe adeudado");
         }
       }
-    } catch (Exception e) {
-      System.err.println(e.getMessage());
     }
   }
   
   private Double pagoPrevio(String id_comprobante){
     Double pagos = pago_proveedor_repo.sumatoriaPagosRealizados(id_comprobante);
-    if(pagos != 0f){
+    if(pagos != null){
       return pagos;
     }
     return 0d;
@@ -113,7 +117,4 @@ public class PagoService implements IPagoService{
       }
       return null;
     }
-  
-  
-  
 }
