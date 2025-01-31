@@ -12,4 +12,5 @@ public interface IPagoService {
   public void eliminarPagoProveedor(int id_pago);
   public List<PagoDTO> verPagoProveedor();
   public Page paginarPago(Pageable pageable);
+  public List<PagoDTO> findByComprobanteId(String id_comprobante);
 }
