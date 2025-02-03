@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import mySystem.QuickSales.DTO.ComprobanteDTO;
 import mySystem.QuickSales.DTO.PagoDTO;
 import mySystem.QuickSales.configuration.CustomException;
 import mySystem.QuickSales.iservice.IComprobanteService;
@@ -38,18 +39,29 @@ public class PagoService implements IPagoService{
       if(pagoPrevio(comprobante.get().getId()) > 0){
         Double pago_actual = pago_dto.getImporte() + pagoPrevio(comprobante.get().getId());
         if(pago_actual <= comprobante.get().getImporte()){
+          actualizarEstadoComprobante(comprobante, pago_actual);
           pago_proveedor_repo.save(pago);
         } else {
             throw new CustomException("La suma de los pagos excede el importe total");
         }
       } else {
         if(pago_dto.getImporte() <= comprobante.get().getImporte()){
+          Double pago_actual = pago_dto.getImporte() + 0d;
+          actualizarEstadoComprobante(comprobante, pago_actual);
           pago_proveedor_repo.save(pago);
         } else {
             System.err.println("Pago excedido");
             throw new CustomException("El pago es mayor al importe adeudado");
         }
       }
+    }
+  }
+  
+  private void actualizarEstadoComprobante(Optional<Comprobante> comprobante, Double pago){
+    if(pago == comprobante.get().getImporte()){
+      comprobante.get().setEstado("Pagado");
+      ComprobanteDTO comprobante_dto = modelMapper.map(comprobante.get(), ComprobanteDTO.class);
+      comprobante_service.actualizarComprobante(comprobante_dto);
     }
   }
   
