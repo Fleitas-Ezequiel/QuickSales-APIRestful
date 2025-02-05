@@ -3,6 +3,7 @@ package mySystem.QuickSales.controller;
 
 import java.util.List;
 import mySystem.QuickSales.DTO.PagoDTO;
+import mySystem.QuickSales.configuration.CustomException;
 import mySystem.QuickSales.iservice.IPagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,8 +35,12 @@ public class PagoProveedorController {
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<String> registrarPago(@RequestBody PagoDTO Pago){
     try {
-      pagoService.registrarPagoProveedor(Pago);
-      return ResponseEntity.ok("Registro exitoso");
+      if(Pago.getImporte() > 0){
+        pagoService.registrarPagoProveedor(Pago);
+        return ResponseEntity.ok("Registro exitoso");
+      } else {
+        throw new CustomException("Debe Ingresar un importe valido");
+      }
     } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
