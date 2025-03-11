@@ -2,6 +2,7 @@ package mySystem.QuickSales.controller;
 
 import java.util.List;
 import mySystem.QuickSales.DTO.StockDTO;
+import mySystem.QuickSales.DTO.StockDTOControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +61,11 @@ public class DepositoController {
   @ResponseBody
   public List<StockDTO> listarDeposito(){
     return depositoService.verStock();
+  }
+  
+  @GetMapping("/list-control")
+  @ResponseBody
+  public List<StockDTOControl> listarTotalStock(){
+    return depositoService.listarStocks();
   }
 }

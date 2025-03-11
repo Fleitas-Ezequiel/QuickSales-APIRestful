@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import mySystem.QuickSales.DTO.StockDTO;
+import mySystem.QuickSales.DTO.StockDTOControl;
 import mySystem.QuickSales.model.Stock;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,11 @@ public class StockService implements IStockService{
     }
     return lista;
   }
+
+    @Override
+    public List<StockDTOControl> listarStocks() {
+        List<StockDTOControl> lista = stock_repo.findStockControl();
+        return lista;
+    }
   
 }

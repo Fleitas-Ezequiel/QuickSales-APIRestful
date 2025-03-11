@@ -26,7 +26,7 @@ public class Producto {
   private String tipo;
   private String marca;
   private String medida;
-  private String descipcion;
+  private String descripcion;
   
   @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
   private List<Stock> stock = new ArrayList<>();
