@@ -13,5 +13,5 @@ public class ProductoDTO implements Serializable{
   private String marca;
   private String tipo;
   private String medida;
-  private String descipcion;
+  private String descripcion;
 }
