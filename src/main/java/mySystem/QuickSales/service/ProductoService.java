@@ -64,5 +64,9 @@ public class ProductoService implements IProductoService{
     }
     return lista;
   }
-  
+
+  @Override
+  public Optional<Producto> findProductoById(int id) {
+    return producto_repo.findById(id);
+  }
 }

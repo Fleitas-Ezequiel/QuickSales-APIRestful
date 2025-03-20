@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import mySystem.QuickSales.DTO.StockDTO;
 import mySystem.QuickSales.DTO.StockDTOControl;
+import mySystem.QuickSales.iservice.IProductoService;
 import mySystem.QuickSales.model.Comprobante;
 import mySystem.QuickSales.model.Producto;
 import mySystem.QuickSales.model.Stock;
@@ -24,7 +25,7 @@ public class StockService implements IStockService{
   private ComprobanteService comprobante_service;
   
   @Autowired
-  private ProductoService producto_service;
+  private IProductoService producto_service;
   
   @Autowired
   private ModelMapper modelMapper;
@@ -40,8 +41,14 @@ public class StockService implements IStockService{
         System.out.println("Se registro un stock previo a la implementacion del sistema");
       }
       if(stock_dto.getProducto_dto() != null){
-        if(stock_dto.getProducto_dto().getId() != 0){
-          deposito.setProducto(modelMapper.map(stock_dto.getProducto_dto(), Producto.class));
+        int id = stock_dto.getProducto_dto().getId();
+        if(id != 0){
+          Optional<Producto> producto = producto_service.findProductoById(id);
+          if(producto.isPresent()){
+            deposito.setProducto(modelMapper.map(stock_dto.getProducto_dto(), Producto.class));
+          } else {
+            producto_service.registrarProducto(stock_dto.getProducto_dto());
+          }
         } else {
           producto_service.registrarProducto(stock_dto.getProducto_dto());
         }
