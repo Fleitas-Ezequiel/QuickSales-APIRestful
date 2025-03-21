@@ -34,7 +34,6 @@ public class StockService implements IStockService{
   public void registrarStock(StockDTO stock_dto) {
     try {
       Stock deposito = modelMapper.map(stock_dto, Stock.class);
-      stock_repo.save(deposito);
       if(stock_dto.getComprobante_dto() != null){
         deposito.setComprobante(modelMapper.map(stock_dto.getComprobante_dto(), Comprobante.class));
       } else {
@@ -55,6 +54,7 @@ public class StockService implements IStockService{
       } else {
         System.out.println("Debe especificar el producto");
       }
+      stock_repo.save(deposito);
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }
