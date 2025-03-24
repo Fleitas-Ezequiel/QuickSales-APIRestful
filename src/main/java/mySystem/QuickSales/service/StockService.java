@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import mySystem.QuickSales.DTO.StockDTO;
 import mySystem.QuickSales.DTO.StockDTOControl;
+import mySystem.QuickSales.configuration.CustomException;
 import mySystem.QuickSales.iservice.IProductoService;
 import mySystem.QuickSales.model.Comprobante;
 import mySystem.QuickSales.model.Producto;
@@ -32,32 +33,42 @@ public class StockService implements IStockService{
 
   @Override
   public void registrarStock(StockDTO stock_dto) {
-    try {
-      Stock deposito = modelMapper.map(stock_dto, Stock.class);
-      if(stock_dto.getComprobante_dto() != null){
-        deposito.setComprobante(modelMapper.map(stock_dto.getComprobante_dto(), Comprobante.class));
+    List<Stock> bulk = new ArrayList<>();
+
+    Stock deposito = new Stock();
+    deposito.setCodigo(stock_dto.getCodigo());
+    deposito.setEstado("En almacen");
+    deposito.setFecha_vencimiento(stock_dto.getFecha_vencimiento());
+    deposito.setPrecio_compra(stock_dto.getPrecio_compra());
+    deposito.setPrecio_venta(stock_dto.getPrecio_venta());
+
+    if(stock_dto.getComprobante_dto() != null){
+      String id_comprobante = stock_dto.getComprobante_dto().getId();
+      Optional<Comprobante> comprobanteOptional = comprobante_service.findComprobanteById(id_comprobante);
+      if(comprobanteOptional.isPresent()){
+        deposito.setComprobante(modelMapper.map(comprobanteOptional, Comprobante.class));
       } else {
-        System.out.println("Se registro un stock previo a la implementacion del sistema");
+        throw new CustomException("Debe elegir un comprobante existente");
       }
-      if(stock_dto.getProducto_dto() != null){
-        int id = stock_dto.getProducto_dto().getId();
-        if(id != 0){
-          Optional<Producto> producto = producto_service.findProductoById(id);
-          if(producto.isPresent()){
-            deposito.setProducto(modelMapper.map(stock_dto.getProducto_dto(), Producto.class));
-          } else {
-            producto_service.registrarProducto(stock_dto.getProducto_dto());
-          }
-        } else {
-          producto_service.registrarProducto(stock_dto.getProducto_dto());
-        }
-      } else {
-        System.out.println("Debe especificar el producto");
-      }
-      stock_repo.save(deposito);
-    } catch (Exception e) {
-      System.err.println(e.getMessage());
+    } else {
+      System.out.println("Se registro un stock sin asociar a un comprobante de compra");
     }
+    if(stock_dto.getProducto_dto() != null && stock_dto.getProducto_dto().getId() != 0){
+      int id = stock_dto.getProducto_dto().getId();
+      Optional<Producto> producto = producto_service.findProductoById(id);
+      if(producto.isPresent()){
+        deposito.setProducto(modelMapper.map(stock_dto.getProducto_dto(), Producto.class));
+      } else {
+        producto_service.registrarProducto(stock_dto.getProducto_dto());
+      }
+    } else {
+      throw new CustomException("Debe especificar el producto");
+    }
+    
+    for(int i=0; i<stock_dto.getCantidad(); i++){ //copiamos un mismo objeto para hacer la cantidad de mismos registros que necesitamos
+      bulk.add(deposito);
+    }
+    stock_repo.saveAll(bulk);
   }
 
   @Override

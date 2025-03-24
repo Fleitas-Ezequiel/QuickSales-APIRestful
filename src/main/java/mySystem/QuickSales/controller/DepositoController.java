@@ -31,9 +31,9 @@ public class DepositoController {
         for(StockDTO deposito: depositos){
           depositoService.registrarStock(deposito);
         }
-        return ResponseEntity.ok("Deposito registrado correctamente");
+        return ResponseEntity.ok("Stock registrado correctamente");
     } catch (Exception e) {
-      return ResponseEntity.badRequest().body("Error al registrar el producto");
+      return ResponseEntity.badRequest().body("Error al registrar el stock \n"+e.getMessage());
     }
   }
   

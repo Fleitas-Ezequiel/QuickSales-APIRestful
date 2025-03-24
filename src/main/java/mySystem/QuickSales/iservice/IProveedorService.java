@@ -11,8 +11,8 @@ public interface IProveedorService {
   public void registrarProveedor(ProveedorDTO proveedor);
   public void modificarProveedor(ProveedorDTO proveedor);
   public void eliminarProveedor(int id_proveedor);
-  public List<ProveedorDTO> verProveedor();
-  public List<ProveedorDTO> verProveedoresFiltrado(String filtrado);
+  public List<ProveedorDTO> verProveedores();
+  public ProveedorDTO verProveedorFiltrado(String filtrado);
   public Page paginarProveedores(Pageable pageable);
   public Optional<Proveedor> findByID(int id_proveedor);
 }

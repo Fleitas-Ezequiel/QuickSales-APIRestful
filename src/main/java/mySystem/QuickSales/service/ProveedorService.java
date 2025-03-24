@@ -115,7 +115,7 @@ public class ProveedorService implements IProveedorService{
 
   @Transactional
   @Override
-  public List<ProveedorDTO> verProveedor() {
+  public List<ProveedorDTO> verProveedores() {
     List<Proveedor> proveedores = proveedorRepo.findAll();
     List<ProveedorDTO> lista = new ArrayList();
     for(Proveedor proveedor : proveedores){
@@ -128,16 +128,16 @@ public class ProveedorService implements IProveedorService{
   }
 
   @Override
-  public List<ProveedorDTO> verProveedoresFiltrado(String filtrado) {
-    List<Proveedor> proveedores = proveedorRepo.findAll();
-    List<ProveedorDTO> lista = new ArrayList();
+  public ProveedorDTO verProveedorFiltrado(String filtrado) {
+    List<Proveedor> proveedores = proveedorRepo.findByFiltros(filtrado);
+    ProveedorDTO proveedor_dto = new ProveedorDTO();
     for(Proveedor proveedor : proveedores){
       ProveedorDTO dto = modelMapper.map(proveedor, ProveedorDTO.class);
       List<ContactoDTO> contactos = contactoService.listarPorProveedor(proveedor.getId_proveedor());
       dto.setContacto_dto(contactos);
-      lista.add(dto);
+      proveedor_dto = dto;
     }
-    return lista;
+    return proveedor_dto;
   }
 
     @Override

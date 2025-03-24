@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface ProveedorRepository extends JpaRepository<Proveedor, Integer>{
   
   //Uso de JPQL
-  @Query("SELECT p FROM Proveedor p WHERE p.id = ?1")
-  List<Proveedor> findByFiltros(int id);
+  @Query("SELECT p FROM Proveedor p WHERE p.nombre = ?1")
+  List<Proveedor> findByFiltros(String id);
 }

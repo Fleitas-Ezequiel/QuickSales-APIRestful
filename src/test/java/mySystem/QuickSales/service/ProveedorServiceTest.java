@@ -81,7 +81,7 @@ public class ProveedorServiceTest {
         System.out.println("verProveedor");
         ProveedorService instance = new ProveedorService();
         List<ProveedorDTO> expResult = null;
-        List<ProveedorDTO> result = instance.verProveedor();
+        List<ProveedorDTO> result = instance.verProveedores();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -96,7 +96,7 @@ public class ProveedorServiceTest {
         String filtrado = "";
         ProveedorService instance = new ProveedorService();
         List<ProveedorDTO> expResult = null;
-        List<ProveedorDTO> result = instance.verProveedoresFiltrado(filtrado);
+        ProveedorDTO result = instance.verProveedorFiltrado(filtrado);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

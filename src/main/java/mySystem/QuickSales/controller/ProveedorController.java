@@ -50,7 +50,6 @@ public class ProveedorController {
     }
   }
   
-  
   @DeleteMapping("/delete/{id}")
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<String> eliminarProveedor(@PathVariable int id){
@@ -65,12 +64,18 @@ public class ProveedorController {
   @GetMapping("/list")
   @ResponseBody
   public List<ProveedorDTO> listarProveedores(@RequestParam(required = false) String filtro){
-    return proveedorService.verProveedor();
+    return proveedorService.verProveedores();
   }
   
   @GetMapping("/pagina")
   @ResponseBody
   public Page listarProveedores(@PageableDefault(page = 0, size = 20) Pageable pageable){
       return proveedorService.paginarProveedores(pageable);
+  }
+  
+  @GetMapping("/single")
+  @ResponseBody
+  public ProveedorDTO buscarProveedor(String nombre){
+    return proveedorService.verProveedorFiltrado(nombre);
   }
 }
