@@ -4,6 +4,7 @@ import mySystem.QuickSales.iservice.IStockService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import mySystem.QuickSales.DTO.StockDTO;
 import mySystem.QuickSales.DTO.StockDTOControl;
 import mySystem.QuickSales.configuration.CustomException;
@@ -42,18 +43,18 @@ public class StockService implements IStockService{
     deposito.setPrecio_compra(stock_dto.getPrecio_compra());
     deposito.setPrecio_venta(stock_dto.getPrecio_venta());
 
-    if(stock_dto.getComprobante_dto() != null){
+    if(!stock_dto.getComprobante_dto().getId().isBlank()){
       String id_comprobante = stock_dto.getComprobante_dto().getId();
       Optional<Comprobante> comprobanteOptional = comprobante_service.findComprobanteById(id_comprobante);
       if(comprobanteOptional.isPresent()){
-        deposito.setComprobante(modelMapper.map(comprobanteOptional, Comprobante.class));
+        deposito.setComprobante(comprobanteOptional.get());
       } else {
         throw new CustomException("Debe elegir un comprobante existente");
       }
     } else {
       System.out.println("Se registro un stock sin asociar a un comprobante de compra");
     }
-    if(stock_dto.getProducto_dto() != null && stock_dto.getProducto_dto().getId() != 0){
+//    if(stock_dto.getProducto_dto() != null && stock_dto.getProducto_dto().getId() != 0){
       int id = stock_dto.getProducto_dto().getId();
       Optional<Producto> producto = producto_service.findProductoById(id);
       if(producto.isPresent()){
@@ -61,13 +62,16 @@ public class StockService implements IStockService{
       } else {
         producto_service.registrarProducto(stock_dto.getProducto_dto());
       }
-    } else {
-      throw new CustomException("Debe especificar el producto");
-    }
+//    } else {
+//      throw new CustomException("Debe especificar el producto");
+//    }
     
     for(int i=0; i<stock_dto.getCantidad(); i++){ //copiamos un mismo objeto para hacer la cantidad de mismos registros que necesitamos
+      deposito.setId_stock(UUID.randomUUID().toString());
       bulk.add(deposito);
     }
+    
+    System.out.println(bulk);
     stock_repo.saveAll(bulk);
   }
 

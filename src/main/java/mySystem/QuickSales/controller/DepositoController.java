@@ -26,14 +26,13 @@ public class DepositoController {
   
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<String> registrarDeposito(@RequestBody List<StockDTO> depositos){
+  public ResponseEntity<String> registrarDeposito(@RequestBody StockDTO stock){
     try {
-        for(StockDTO deposito: depositos){
-          depositoService.registrarStock(deposito);
-        }
+        System.out.println(stock);
+        depositoService.registrarStock(stock);
         return ResponseEntity.ok("Stock registrado correctamente");
     } catch (Exception e) {
-      return ResponseEntity.badRequest().body("Error al registrar el stock \n"+e.getMessage());
+      return ResponseEntity.badRequest().body("Error al registrar el stock \n "+e.getMessage());
     }
   }
   
