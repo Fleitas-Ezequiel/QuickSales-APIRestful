@@ -142,12 +142,12 @@ public class ProveedorService implements IProveedorService{
 
     @Override
     public Page<ProveedorDTO> paginarProveedores(Pageable pageable) {
-      Page<Proveedor> proveedor = proveedorRepo.findAll(pageable);
-      return proveedor.map((provider)-> {
-        ProveedorDTO proveedor_dto = modelMapper.map(provider, ProveedorDTO.class);
-        if(!provider.getContacto().isEmpty()){
+      Page<Proveedor> proveedores = proveedorRepo.findAll(pageable);
+      return proveedores.map((proveedor)-> {
+        ProveedorDTO proveedor_dto = modelMapper.map(proveedor, ProveedorDTO.class);
+        if(!proveedor.getContacto().isEmpty()){
           List<ContactoDTO> lista_contacto = new ArrayList();
-          for(Contacto c: provider.getContacto()){
+          for(Contacto c: proveedor.getContacto()){
             ContactoDTO contacto_dto = modelMapper.map(c, ContactoDTO.class);
             lista_contacto.add(contacto_dto);
           }

@@ -70,7 +70,7 @@ public class ProductoServiceTest {
     @Test
     public void testEliminarProducto() {
         System.out.println("eliminarProducto");
-        ProductoDTO producto = null;
+        int producto = 0;
         ProductoService instance = new ProductoService();
         instance.eliminarProducto(producto);
         // TODO review the generated test code and remove the default call to fail.

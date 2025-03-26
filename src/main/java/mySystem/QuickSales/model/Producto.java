@@ -23,6 +23,7 @@ public class Producto {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int id_producto;
   
+  private String producto;
   private String tipo;
   private String marca;
   private String medida;

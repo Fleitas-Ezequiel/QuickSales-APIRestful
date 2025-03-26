@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductoDTO implements Serializable{
   private int id;
+  private String producto;
   private String marca;
   private String tipo;
   private String medida;
