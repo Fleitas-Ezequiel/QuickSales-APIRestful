@@ -14,10 +14,10 @@ import org.springframework.stereotype.Repository;
 @EnableJpaRepositories
 public interface StockRepository extends JpaRepository<Stock, String>{
   @Transactional
-  @Query("SELECT p.marca, p.medida, p.descripcion, COUNT(s.id_stock) "
+  @Query("SELECT p.producto, p.marca, p.medida, p.descripcion, COUNT(s.id_stock) "
           + "FROM Producto p "
           + "JOIN p.stock s "
           + "WHERE s.estado = 'En almacen' "
           + "GROUP BY p.id_producto")
-  List<StockDTOControl> findStockControl();
+  List<Object[]> findStockControl();
 }

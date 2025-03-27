@@ -28,7 +28,6 @@ public class DepositoController {
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<String> registrarDeposito(@RequestBody StockDTO stock){
     try {
-        System.out.println(stock);
         depositoService.registrarStock(stock);
         return ResponseEntity.ok("Stock registrado correctamente");
     } catch (Exception e) {

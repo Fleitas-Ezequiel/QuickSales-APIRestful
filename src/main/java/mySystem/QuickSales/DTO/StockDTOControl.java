@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StockDTOControl implements Serializable{
+    private String producto;
     private String marca;
-    private String descripcion;
     private String medida;
-    private int cantidad;
+    private String descripcion;
+    private Long cantidad;
 }

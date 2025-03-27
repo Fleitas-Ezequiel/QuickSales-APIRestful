@@ -36,7 +36,7 @@ public class ProductoService implements IProductoService{
   @Override
   public void modificarProducto(ProductoDTO producto) {
     try {
-      Optional<Producto> p = producto_repo.findById(producto.getId());
+      Optional<Producto> p = producto_repo.findById(producto.getId_producto());
       if(p.isPresent()){
         Producto prod = p.get();
         prod = modelMapper.map(producto, Producto.class);
