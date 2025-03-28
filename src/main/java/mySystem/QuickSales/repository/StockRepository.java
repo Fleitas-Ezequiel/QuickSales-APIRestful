@@ -2,8 +2,6 @@ package mySystem.QuickSales.repository;
 
 import jakarta.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
-import mySystem.QuickSales.DTO.StockDTOControl;
 import mySystem.QuickSales.model.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

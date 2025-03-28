@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import mySystem.QuickSales.iservice.IStockService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.StreamingHttpOutputMessage;
 
 @RestController
 @RequestMapping("/deposito")
@@ -65,5 +69,16 @@ public class DepositoController {
   @ResponseBody
   public List<StockDTOControl> listarTotalStock(){
     return depositoService.listarStocks();
+  }
+  
+  @GetMapping("/pagina")
+  @ResponseBody
+  public Page listarProveedores(@PageableDefault(page = 0, size = 20) Pageable pageable){
+    try {
+      return depositoService.paginarStock(pageable);
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
+      return null;
+    }
   }
 }

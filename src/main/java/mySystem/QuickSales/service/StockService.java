@@ -18,6 +18,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import mySystem.QuickSales.repository.StockRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class StockService implements IStockService{
@@ -139,5 +141,13 @@ public class StockService implements IStockService{
       }
       return stock_list;
     }
+
+  @Override
+  public Page paginarStock(Pageable pageable) {
+    Page<Stock> stocks = stock_repo.findAll(pageable);
+    return stocks.map((stock) -> {
+      return modelMapper.map(stock, StockDTO.class);
+    });
+  }
   
 }

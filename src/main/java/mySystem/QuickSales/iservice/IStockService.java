@@ -3,6 +3,8 @@ package mySystem.QuickSales.iservice;
 import java.util.List;
 import mySystem.QuickSales.DTO.StockDTO;
 import mySystem.QuickSales.DTO.StockDTOControl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IStockService {
   
@@ -11,4 +13,5 @@ public interface IStockService {
   public void eliminarStock(StockDTO stock);
   public List<StockDTO> verStock();
   public List<StockDTOControl> listarStocks();
+  public Page paginarStock(Pageable pageable);
 }

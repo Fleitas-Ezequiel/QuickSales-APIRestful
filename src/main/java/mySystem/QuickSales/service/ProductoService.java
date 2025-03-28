@@ -77,8 +77,7 @@ public class ProductoService implements IProductoService{
   public Page<ProductoDTO> paginarProductos(Pageable pageable) {
     Page<Producto> productos = producto_repo.findAll(pageable);
     return productos.map((producto) -> {
-      ProductoDTO producto_dto = modelMapper.map(producto, ProductoDTO.class);
-      return producto_dto;
+      return modelMapper.map(producto, ProductoDTO.class);
     });
   }
 
