@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import mySystem.QuickSales.DTO.ProductoDTO;
 import mySystem.QuickSales.DTO.StockDTO;
 import mySystem.QuickSales.DTO.StockDTOControl;
 import mySystem.QuickSales.configuration.CustomException;
@@ -57,7 +56,7 @@ public class StockService implements IStockService{
     
     for(int i=0; i<stock_dto.getCantidad(); i++){ //copiamos un mismo objeto para hacer la cantidad de mismos registros que necesitamos
       Stock deposito = new Stock();
-      deposito.setId_stock(UUID.randomUUID().toString());
+      deposito.setIdStock(UUID.randomUUID().toString());
       deposito.setCodigo(stock_dto.getCodigo());
       deposito.setEstado("En almacen");
       deposito.setFecha_vencimiento(stock_dto.getFecha_vencimiento());
@@ -94,7 +93,7 @@ public class StockService implements IStockService{
   @Override
   public void actualizarStock(StockDTO stock_dto) {
     try {
-      Optional<Stock> deposito = stock_repo.findById(stock_dto.getId_stock());
+      Optional<Stock> deposito = stock_repo.findById(stock_dto.getIdStock());
       if(deposito.isPresent()){
         Stock boleta_proveedor = modelMapper.map(deposito, Stock.class);
         stock_repo.save(boleta_proveedor);
@@ -107,9 +106,9 @@ public class StockService implements IStockService{
   @Override
   public void eliminarStock(StockDTO stock_dto) {
     try {
-      Optional<Stock> deposito = stock_repo.findById(stock_dto.getId_stock());
+      Optional<Stock> deposito = stock_repo.findById(stock_dto.getIdStock());
       if(deposito.isPresent()){
-        stock_repo.deleteById(deposito.get().getId_stock());
+        stock_repo.deleteById(deposito.get().getIdStock());
       }
     } catch (Exception e) {
       System.err.println(e.getMessage());
@@ -131,11 +130,13 @@ public class StockService implements IStockService{
       List<StockDTOControl> stock_list = new ArrayList<>();
       for(Object[] stock: lista){
         StockDTOControl stock_object = new StockDTOControl();
-        stock_object.setProducto((String)stock[0]);
-        stock_object.setMarca((String)stock[1]);
-        stock_object.setMedida((String)stock[2]);
-        stock_object.setDescripcion((String)stock[3]);
-        stock_object.setCantidad((Long)stock[4]);
+        stock_object.setIdProducto((Integer)stock[0]);
+        stock_object.setProducto((String)stock[1]);
+        stock_object.setMarca((String)stock[2]);
+        stock_object.setMedida((String)stock[3]);
+        stock_object.setTipo((String)stock[4]);
+        stock_object.setDescripcion((String)stock[5]);
+        stock_object.setCantidad((Long)stock[6]);
         
         stock_list.add(stock_object);
       }
@@ -148,6 +149,12 @@ public class StockService implements IStockService{
     return stocks.map((stock) -> {
       return modelMapper.map(stock, StockDTO.class);
     });
+  }
+
+  @Override
+  public Page paginarStockPorProducto(Pageable pageable, int id_producto, String estado) {
+    Page<Stock> stocks = stock_repo.findByProductoIdProductoAndEstado(id_producto, estado, pageable);
+    return stocks.map(stock -> modelMapper.map(stock, StockDTO.class));
   }
   
 }

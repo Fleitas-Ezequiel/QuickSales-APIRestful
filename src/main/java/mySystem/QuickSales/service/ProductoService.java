@@ -52,7 +52,7 @@ public class ProductoService implements IProductoService{
     try {
       Optional<Producto> p = producto_repo.findById(id_producto);
       if(p.isPresent()){
-        producto_repo.deleteById(p.get().getId_producto());
+        producto_repo.deleteById(p.get().getIdProducto());
       }
     } catch (Exception e) {
       System.err.println(e.getMessage());

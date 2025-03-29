@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StockDTO implements Serializable{
-  private String id_stock;
+  private String idStock;
   private Long codigo;
   private Date fecha_vencimiento;
   private String estado;

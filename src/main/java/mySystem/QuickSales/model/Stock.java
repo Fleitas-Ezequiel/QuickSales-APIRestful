@@ -1,6 +1,6 @@
 package mySystem.QuickSales.model;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -19,7 +19,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "stock")
 public class Stock {
   @Id
-  private String id_stock;
+  @Column(name = "id_stock")
+  private String idStock;
   
   private Long codigo;
   private Date fecha_vencimiento;

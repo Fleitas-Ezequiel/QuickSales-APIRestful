@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import mySystem.QuickSales.iservice.IStockService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.StreamingHttpOutputMessage;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/deposito")
@@ -80,5 +81,15 @@ public class DepositoController {
       System.err.println(e.getMessage());
       return null;
     }
+  }
+  
+  @GetMapping("/pagina/producto")
+  public ResponseEntity<Page<StockDTO>> getStocksPorProducto(
+          @RequestParam int id_producto,
+          @RequestParam String estado,
+          @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+
+      Page<StockDTO> stocks = depositoService.paginarStockPorProducto(pageable, id_producto, estado);
+      return ResponseEntity.ok(stocks);
   }
 }
