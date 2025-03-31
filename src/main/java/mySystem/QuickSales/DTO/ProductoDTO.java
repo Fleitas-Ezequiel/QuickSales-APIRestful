@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductoDTO implements Serializable{
-  private int id_producto;
+  private int idProducto;
   private String producto;
   private String marca;
   private String tipo;

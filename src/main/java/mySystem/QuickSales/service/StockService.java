@@ -43,7 +43,7 @@ public class StockService implements IStockService{
     List<Stock> bulk = new ArrayList<>();
     
     Producto producto = new Producto();
-    int id = stock_dto.getProducto_dto().getId_producto();
+    int id = stock_dto.getProducto_dto().getIdProducto();
     Optional<Producto> producto_optional = producto_service.findProductoById(id);
     if(producto_optional.isPresent()){
       producto = producto_optional.get();
