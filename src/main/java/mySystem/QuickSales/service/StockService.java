@@ -142,6 +142,25 @@ public class StockService implements IStockService{
       }
       return stock_list;
     }
+    
+    @Override
+    public List<StockDTOControl> listarStockPorProducto(String producto) {
+      List<Object[]> lista = stock_repo.findStockControlByProduct(producto);
+      List<StockDTOControl> stock_list = new ArrayList<>();
+      for(Object[] stock: lista){
+        StockDTOControl stock_object = new StockDTOControl();
+        stock_object.setIdProducto((Integer)stock[0]);
+        stock_object.setProducto((String)stock[1]);
+        stock_object.setMarca((String)stock[2]);
+        stock_object.setMedida((String)stock[3]);
+        stock_object.setTipo((String)stock[4]);
+        stock_object.setDescripcion((String)stock[5]);
+        stock_object.setCantidad((Long)stock[6]);
+        
+        stock_list.add(stock_object);
+      }
+      return stock_list;
+    }
 
   @Override
   public Page paginarStock(Pageable pageable) {

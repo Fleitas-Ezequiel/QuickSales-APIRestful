@@ -19,6 +19,7 @@ import mySystem.QuickSales.iservice.IStockService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -70,6 +71,12 @@ public class DepositoController {
   @ResponseBody
   public List<StockDTOControl> listarTotalStock(){
     return depositoService.listarStocks();
+  }
+  
+  @GetMapping("/list-filter")
+  @ResponseBody
+  public List<StockDTOControl> listarStockFiltrado(@RequestParam String producto){
+    return depositoService.listarStockPorProducto(producto);
   }
   
   @GetMapping("/pagina")

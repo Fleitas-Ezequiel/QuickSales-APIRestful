@@ -15,4 +15,5 @@ public interface IStockService {
   public List<StockDTOControl> listarStocks();
   public Page paginarStock(Pageable pageable);
   public Page paginarStockPorProducto(Pageable pageable, int id_producto, String estado);
+  public List<StockDTOControl> listarStockPorProducto(String producto);
 }
