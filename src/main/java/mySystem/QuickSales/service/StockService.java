@@ -2,6 +2,7 @@ package mySystem.QuickSales.service;
 
 import mySystem.QuickSales.iservice.IStockService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -156,6 +157,8 @@ public class StockService implements IStockService{
         stock_object.setTipo((String)stock[4]);
         stock_object.setDescripcion((String)stock[5]);
         stock_object.setCantidad((Long)stock[6]);
+        stock_object.setPrecio_venta((Float) stock[7]);
+        stock_object.setFecha_vencimiento((Date) stock[8]);
         
         stock_list.add(stock_object);
       }

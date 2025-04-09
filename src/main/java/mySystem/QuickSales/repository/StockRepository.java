@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @EnableJpaRepositories
 public interface StockRepository extends JpaRepository<Stock, String>{
   @Transactional
-  @Query("SELECT p.idProducto, p.producto, p.marca, p.medida, p.tipo, p.descripcion, COUNT(s.idStock) "
+  @Query("SELECT p.idProducto, p.producto, p.marca, p.medida, p.tipo, p.descripcion, COUNT(s.idStock), s.precio_venta, s.fecha_vencimiento "
           + "FROM Producto p "
           + "JOIN p.stock s "
           + "WHERE s.estado = 'En almacen' "
@@ -23,7 +23,7 @@ public interface StockRepository extends JpaRepository<Stock, String>{
   List<Object[]> findStockControl();
   
   @Transactional
-  @Query("SELECT p.idProducto, p.producto, p.marca, p.medida, p.tipo, p.descripcion, COUNT(s.idStock) "
+  @Query("SELECT p.idProducto, p.producto, p.marca, p.medida, p.tipo, p.descripcion, COUNT(s.idStock), s.precio_venta, s.fecha_vencimiento "
           + "FROM Producto p "
           + "JOIN p.stock s "
           + "WHERE s.estado = 'En almacen' "

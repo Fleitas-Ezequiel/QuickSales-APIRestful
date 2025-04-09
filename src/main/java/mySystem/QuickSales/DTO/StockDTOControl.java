@@ -1,6 +1,7 @@
 package mySystem.QuickSales.DTO;
 
 import java.io.Serializable;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,6 @@ public class StockDTOControl implements Serializable{
     private String tipo;
     private String descripcion;
     private Long cantidad;
+    private Float precio_venta;
+    private Date fecha_vencimiento;
 }
