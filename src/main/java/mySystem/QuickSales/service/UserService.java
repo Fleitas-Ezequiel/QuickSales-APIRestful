@@ -51,7 +51,7 @@ public class UserService implements IUserService{
         
         if(usuario_optional.isPresent()){
             User user_data = usuario_optional.get();
-            if(user_data.getId_user() == usuario.getId_user()){
+            if(user_data.getIdUser() == usuario.getIdUser()){
                 user_repo.save(usuario);
             }   else {
                 System.out.println("El id no coincide con el usuario autenticado");
@@ -67,8 +67,8 @@ public class UserService implements IUserService{
         
         if(usuario_optional.isPresent()){
             User user_data = usuario_optional.get();
-            if(user_data.getId_user() == usuario.getId_user()){
-                user_repo.deleteById(usuario.getId_user());
+            if(user_data.getIdUser() == usuario.getIdUser()){
+                user_repo.deleteById(usuario.getIdUser());
             }   else {
                 System.out.println("El id no coincide con el usuario autenticado");
             }

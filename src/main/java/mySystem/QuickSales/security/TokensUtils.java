@@ -15,7 +15,7 @@ public class TokensUtils {
     private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 86400000L; // tiempo de validez del token a 5 minutos expresado en milisegundos
 
     //Este metodo creara el token que sera enviado al cliente
-    public static String createToken(String username, Collection<? extends GrantedAuthority> roles) throws JsonProcessingException{
+    public static String createAccessToken(String username, Collection<? extends GrantedAuthority> roles) throws JsonProcessingException{
       Date expirationDate = new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS);
       
       Claims claims = Jwts.claims()

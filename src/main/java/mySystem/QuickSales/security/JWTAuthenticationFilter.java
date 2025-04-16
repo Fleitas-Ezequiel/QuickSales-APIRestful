@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
     
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
     
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager){
         this.authenticationManager = authenticationManager;
@@ -69,7 +69,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       
       org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authResult.getPrincipal();
       String username = user.getUsername();
-      String token  = TokensUtils.createToken(username, roles);
+      String token  = TokensUtils.createAccessToken(username, roles);
       
       response.addHeader("Authorization", "Bearer " + token);
       

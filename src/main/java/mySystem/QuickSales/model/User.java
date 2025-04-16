@@ -76,5 +76,5 @@ public class User {
     private List<Role> roles;
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<RefreshToken> tokens;
+    private List<Token> tokens;
 }

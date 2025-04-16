@@ -1,61 +1,142 @@
 package mySystem.QuickSales.service;
 
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.UUID;
-import mySystem.QuickSales.model.RefreshToken;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import mySystem.QuickSales.model.AuthenticationResponse;
+import mySystem.QuickSales.model.Token;
 import mySystem.QuickSales.model.User;
-import mySystem.QuickSales.repository.RefreshTokenRepository;
 import mySystem.QuickSales.repository.UserRepository;
 import mySystem.QuickSales.security.JwtUtils;
-import mySystem.QuickSales.security.TokensUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import mySystem.QuickSales.repository.TokenRepository;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
+@AllArgsConstructor
 public class AuthService {
   
   @Autowired
-  private RefreshTokenRepository refreshTokenRepository;
+  private final TokenRepository tokenRepository;
   
   @Autowired
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
   
   @Autowired
-  private JwtUtils jwtUtils;
+  private final PasswordEncoder passwordEncoder;
   
-  private long refreshTokenDurationMs = 14 * 24 * 60 * 60 * 1000;
+  @Autowired
+  private final JwtUtils jwtUtils;
   
-  public RefreshToken createRefreshToken(User user){
-    RefreshToken token = new RefreshToken();
-    token.setUser(user);
-    token.setToken(UUID.randomUUID().toString());
-    token.setExpiryDate(Instant.now().plusMillis(refreshTokenDurationMs));
-    return refreshTokenRepository.save(token);
-  }
+  @Autowired
+  private final AuthenticationManager authenticationManager;
   
-  public RefreshToken verifyExpiration(RefreshToken token){
-    if(token.getExpiryDate().isBefore(Instant.now())){
-      refreshTokenRepository.delete(token);
-      throw new RuntimeException("Refresh token expirado");
+  public AuthenticationResponse register(User request) {
+
+        // check if user already exist. if exist than authenticate the user
+        if(userRepository.findByUsername(request.getUsername()).isPresent()) {
+            return new AuthenticationResponse(null, null,"User already exist");
+        }
+
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+
+        user.setRoles(request.getRoles());
+
+        user = userRepository.save(user);
+
+        String accessToken = jwtUtils.generateAccessToken(user);
+        String refreshToken = jwtUtils.generateRefreshToken(user);
+
+        saveUserToken(accessToken, refreshToken, user);
+
+        return new AuthenticationResponse(accessToken, refreshToken,"User registration was successful");
+
     }
-    return token;
-  }
-  
-  public String refreshAccessToken(String refreshTokenStr){
-    RefreshToken token = refreshTokenRepository.findByToken(refreshTokenStr)
-            .map(this::verifyExpiration)
-            .orElseThrow(()-> new RuntimeException("Token no encontrado"));
+
+    public AuthenticationResponse authenticate(User request) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
+
+        User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
+        String accessToken = jwtUtils.generateAccessToken(user);
+        String refreshToken = jwtUtils.generateRefreshToken(user);
+
+        revokeAllTokenByUser(user);
+        saveUserToken(accessToken, refreshToken, user);
+
+        return new AuthenticationResponse(accessToken, refreshToken, "User login was successful");
+
+    }
     
-    User user = token.getUser();
-    return jwtUtils.generateJwtToken(new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), new ArrayList<>()));
-  }
-  
-  public TokenResponse refreshToken(final String authHeader){
-    if(authHeader == null || !authHeader.startsWith("Bearer ")){
-      throw new IllegalArgumentException("Invalid Bearer token");
+    private void revokeAllTokenByUser(User user) {
+        List<Token> validTokens = tokenRepository.findAllAccessTokensByUser(user.getIdUser());
+        if(validTokens.isEmpty()) {
+            return;
+        }
+
+        validTokens.forEach(t-> {
+            t.setLoggedOut(true);
+        });
+
+        tokenRepository.saveAll(validTokens);
     }
-  }
+    private void saveUserToken(String accessToken, String refreshToken, User user) {
+        Token token = new Token();
+        token.setAccessToken(accessToken);
+        token.setRefreshToken(refreshToken);
+        token.setLoggedOut(false);
+        token.setUser(user);
+        tokenRepository.save(token);
+    }
+
+    public ResponseEntity refreshToken(
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        // extract the token from authorization header
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        if(authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+
+        String token = authHeader.substring(7);
+
+        // extract username from token
+        String username = jwtUtils.extractUsername(token);
+
+        // check if the user exist in database
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(()->new RuntimeException("No user found"));
+
+        // check if the token is valid
+        if(jwtUtils.isValidRefreshToken(token, user)) {
+            // generate access token
+            String accessToken = jwtUtils.generateAccessToken(user);
+            String refreshToken = jwtUtils.generateRefreshToken(user);
+
+            revokeAllTokenByUser(user);
+            saveUserToken(accessToken, refreshToken, user);
+
+            return new ResponseEntity(new AuthenticationResponse(accessToken, refreshToken, "New token generated"), HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+
+    }
 }

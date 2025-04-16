@@ -21,25 +21,22 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "tokens")
-public class RefreshToken {
-  
-  public enum TokenType {
-    BEARER
-  }
+@Entity(name = "token")
+public class Token {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @Column(name = "id")
+  private Integer id;
   
-  @Column(nullable = false, unique = true)
-  private String token;
+  @Column(name = "access_token", nullable = false, unique = true)
+  private String accessToken;
   
-  @Enumerated(EnumType.STRING)
-  public TokenType toeknType = TokenType.BEARER;
+  @Column(name = "refresh_token", nullable = false, unique = true)
+  private String refreshToken;
   
-  @Column(nullable = false)
-  private Instant expiryDate;
+  @Column(name = "is_logged_out")
+  private boolean loggedOut;
   
   public boolean revoked;
   
