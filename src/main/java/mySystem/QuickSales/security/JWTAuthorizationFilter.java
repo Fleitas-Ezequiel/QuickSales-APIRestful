@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +15,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import static mySystem.QuickSales.security.TokensUtils.ACCESS_TOKEN_SECRET;
+import javax.crypto.SecretKey;
+import static mySystem.QuickSales.security.TokensUtils.GENERATED_TOKEN_SECRET;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,7 +53,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
     
     try{
         Claims claims = Jwts.parser()
-                .verifyWith(ACCESS_TOKEN_SECRET)
+                .verifyWith(getSigninKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -76,6 +79,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
         response.setContentType("application/json");
         //esta validacion se usa en caso de que nos envien un token en formato incorrecto o con la informacion incorrecta
     }
+  }
+  
+  private SecretKey getSigninKey() {
+      byte[] keyBytes = Decoders.BASE64URL.decode(GENERATED_TOKEN_SECRET);
+      return Keys.hmacShaKeyFor(keyBytes);
   }
   
 }

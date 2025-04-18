@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class JwtUtils {
 
-    private final SecretKey jwtSecret = Jwts.SIG.HS256.key().build();
+    public final static SecretKey JWT_SECRET = Jwts.SIG.HS256.key().build();
     private final long accessTokenExpiration = 15*60*1000; // 15 min
     private final long refreshTokenExpiration = 30*24*60*60*1000;
     
@@ -67,7 +67,7 @@ public class JwtUtils {
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parser()
-                .verifyWith(jwtSecret)
+                .verifyWith(JWT_SECRET)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -87,7 +87,7 @@ public class JwtUtils {
                 .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expireTime ))
-                .signWith(jwtSecret)
+                .signWith(JWT_SECRET)
                 .compact();
 
         return token;

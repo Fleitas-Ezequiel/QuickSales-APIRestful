@@ -4,19 +4,46 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import java.util.Collection;
 
 import java.util.Date;
+import java.util.function.Function;
 import javax.crypto.SecretKey;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import mySystem.QuickSales.model.User;
+import mySystem.QuickSales.repository.TokenRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
+@Component
+@AllArgsConstructor
+@NoArgsConstructor
 public class TokensUtils {
-    public final static SecretKey ACCESS_TOKEN_SECRET = Jwts.SIG.HS256.key().build(); // Llave secreta de acceso
-    private final static Long ACCESS_TOKEN_VALIDITY_SECONDS = 86400000L; // tiempo de validez del token a 5 minutos expresado en milisegundos
-
+    public final static String GENERATED_TOKEN_SECRET = "jIvqUvRZPMO1nG1wHQIb3LOt0qcnwE7nBrKhqg2lVUZWTZzGi3WPyAw1zFl3WT9"; // Llave secreta de acceso
+    private final static long ACCESS_TOKEN_VALIDITY_SECONDS = 15*60*1000; // tiempo de validez del token a 5 minutos expresado en milisegundos
+    private final static long REFRESH_TOKEN_VALIDITY_SECONDS = 14*24*60*60*1000;
+    
+    @Autowired
+    private TokenRepository tokenRepository;
+    
     //Este metodo creara el token que sera enviado al cliente
     public static String createAccessToken(String username, Collection<? extends GrantedAuthority> roles) throws JsonProcessingException{
-      Date expirationDate = new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS);
+      return generateToken(username, roles, ACCESS_TOKEN_VALIDITY_SECONDS);
+    }
+    
+    public static String createRefreshToken(String username, Collection<? extends GrantedAuthority> roles) throws JsonProcessingException{
+      return generateToken(username, roles, REFRESH_TOKEN_VALIDITY_SECONDS);
+    }
+    
+    private static String generateToken(String username, 
+            Collection<? extends GrantedAuthority> roles,
+            Long expiration)throws JsonProcessingException{
+      Date expirationDate = new Date(System.currentTimeMillis() + expiration);
       
       Claims claims = Jwts.claims()
               .add("authorities", new ObjectMapper().writeValueAsString(roles))
@@ -26,9 +53,62 @@ public class TokensUtils {
       return Jwts.builder()
               .subject(username)
               .claims(claims)
+              .issuedAt(new Date(System.currentTimeMillis()))
               .expiration(expirationDate)
-              .issuedAt(new Date())
-              .signWith(ACCESS_TOKEN_SECRET)
+              .signWith(getSigninKey())
               .compact();
+    }
+    
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+    
+    private Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+    
+    public <T> T extractClaim(String token, Function<Claims, T> resolver) {
+        Claims claims = extractAllClaims(token);
+        return resolver.apply(claims);
+    }
+    
+    private Claims extractAllClaims(String token) {
+        return Jwts
+                .parser()
+                .verifyWith(getSigninKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+    
+    private static SecretKey getSigninKey() {
+        byte[] keyBytes = Decoders.BASE64URL.decode(GENERATED_TOKEN_SECRET);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+    
+    public boolean isValidRefreshToken(String token, User user) {
+        String username = extractUsername(token);
+
+        boolean validRefreshToken = tokenRepository
+                .findByRefreshToken(token)
+                .map(t -> t.isLoggedOut())
+                .orElse(false);
+
+        return (username.equals(user.getUsername())) && !isTokenExpired(token) && validRefreshToken;
+    }
+    
+    private boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+    
+    public boolean isValid(String token, UserDetails user) {
+        String username = extractUsername(token);
+
+        boolean validToken = tokenRepository
+                .findByAccessToken(token)
+                .map(t -> !t.isLoggedOut())
+                .orElse(false);
+
+        return (username.equals(user.getUsername())) && !isTokenExpired(token) && validToken;
     }
 }

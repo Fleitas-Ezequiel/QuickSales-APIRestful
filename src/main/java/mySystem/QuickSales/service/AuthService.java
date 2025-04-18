@@ -1,23 +1,29 @@
 package mySystem.QuickSales.service;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import mySystem.QuickSales.model.AuthenticationResponse;
+import mySystem.QuickSales.model.Role;
 import mySystem.QuickSales.model.Token;
 import mySystem.QuickSales.model.User;
 import mySystem.QuickSales.repository.UserRepository;
-import mySystem.QuickSales.security.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import mySystem.QuickSales.repository.TokenRepository;
+import mySystem.QuickSales.security.TokensUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
@@ -34,12 +40,12 @@ public class AuthService {
   private final PasswordEncoder passwordEncoder;
   
   @Autowired
-  private final JwtUtils jwtUtils;
+  private final TokensUtils jwtUtils;
   
   @Autowired
   private final AuthenticationManager authenticationManager;
   
-  public AuthenticationResponse register(User request) {
+  public AuthenticationResponse register(User request) throws JsonProcessingException {
 
         // check if user already exist. if exist than authenticate the user
         if(userRepository.findByUsername(request.getUsername()).isPresent()) {
@@ -55,9 +61,11 @@ public class AuthService {
         user.setRoles(request.getRoles());
 
         user = userRepository.save(user);
+        
+        Collection<? extends GrantedAuthority> roles = buildAuthorities(user.getRoles());
 
-        String accessToken = jwtUtils.generateAccessToken(user);
-        String refreshToken = jwtUtils.generateRefreshToken(user);
+        String accessToken = jwtUtils.createAccessToken(user.getUsername(), roles);
+        String refreshToken = jwtUtils.createRefreshToken(user.getUsername(), roles);
 
         saveUserToken(accessToken, refreshToken, user);
 
@@ -65,7 +73,7 @@ public class AuthService {
 
     }
 
-    public AuthenticationResponse authenticate(User request) {
+    public AuthenticationResponse authenticate(User request) throws JsonProcessingException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -74,14 +82,25 @@ public class AuthService {
         );
 
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
-        String accessToken = jwtUtils.generateAccessToken(user);
-        String refreshToken = jwtUtils.generateRefreshToken(user);
+        
+        Collection<? extends GrantedAuthority> roles = buildAuthorities(user.getRoles());
+        
+        String accessToken = jwtUtils.createAccessToken(user.getUsername(), roles);
+        String refreshToken = jwtUtils.createRefreshToken(user.getUsername(), roles);
 
         revokeAllTokenByUser(user);
         saveUserToken(accessToken, refreshToken, user);
 
         return new AuthenticationResponse(accessToken, refreshToken, "User login was successful");
 
+    }
+    
+    private Collection<? extends GrantedAuthority> buildAuthorities(List<Role> roleNames) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roleNames) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
     
     private void revokeAllTokenByUser(User user) {
@@ -107,11 +126,12 @@ public class AuthService {
 
     public ResponseEntity refreshToken(
             HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response) throws JsonProcessingException {
         // extract the token from authorization header
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("No coincide");
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
 
@@ -127,15 +147,18 @@ public class AuthService {
         // check if the token is valid
         if(jwtUtils.isValidRefreshToken(token, user)) {
             // generate access token
-            String accessToken = jwtUtils.generateAccessToken(user);
-            String refreshToken = jwtUtils.generateRefreshToken(user);
+            
+            Collection<? extends GrantedAuthority> roles = buildAuthorities(user.getRoles());
+            
+            String accessToken = jwtUtils.createAccessToken(user.getUsername(), roles);
+            String refreshToken = jwtUtils.createRefreshToken(user.getUsername(), roles);
 
             revokeAllTokenByUser(user);
             saveUserToken(accessToken, refreshToken, user);
 
             return new ResponseEntity(new AuthenticationResponse(accessToken, refreshToken, "New token generated"), HttpStatus.OK);
         }
-
+        
         return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
     }

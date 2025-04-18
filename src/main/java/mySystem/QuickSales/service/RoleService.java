@@ -1,6 +1,5 @@
 package mySystem.QuickSales.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import mySystem.QuickSales.iservice.IRoleService;
 import mySystem.QuickSales.model.Role;

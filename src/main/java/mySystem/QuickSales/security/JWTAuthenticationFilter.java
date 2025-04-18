@@ -70,11 +70,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
       org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authResult.getPrincipal();
       String username = user.getUsername();
       String token  = TokensUtils.createAccessToken(username, roles);
+      String refresh = TokensUtils.createRefreshToken(username, roles);
       
       response.addHeader("Authorization", "Bearer " + token);
       
       Map<String, String> body = new HashMap<>();
-      body.put("token", token);
+      body.put("access_token", token);
+      body.put("refresh_token", refresh);
       body.put("username", username);
       body.put("message", String.format("Usuario %s logueado con exito", username));
       

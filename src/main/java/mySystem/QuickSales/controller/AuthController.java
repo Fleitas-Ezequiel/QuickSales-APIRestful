@@ -2,6 +2,7 @@ package mySystem.QuickSales.controller;
 
 // controller/AuthController.java
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,14 +27,14 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody User request
-            ) {
+            ) throws JsonProcessingException {
         return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(
             @RequestBody User request
-    ) {
+    ) throws JsonProcessingException {
         return ResponseEntity.ok(authService.authenticate(request));
     }
 
@@ -41,7 +42,7 @@ public class AuthController {
     public ResponseEntity refreshToken(
             HttpServletRequest request,
             HttpServletResponse response
-    ) {
+    ) throws JsonProcessingException {
         return authService.refreshToken(request, response);
     }
 }
