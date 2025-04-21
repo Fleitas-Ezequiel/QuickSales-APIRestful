@@ -20,6 +20,12 @@ public class SecurityConfig {
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
     
+    @Autowired
+    private UserDetailServiceImpl userDetailService;
+    
+    @Autowired
+    private TokensUtils tokensUtils;
+    
     @Bean
     AuthenticationManager authManager() throws Exception{
       return authenticationConfiguration.getAuthenticationManager();
@@ -30,7 +36,7 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
       return http.authorizeHttpRequests( (authz) -> authz
-              .requestMatchers("/auth/**").permitAll()
+              .requestMatchers("/auth/login","/auth/register","/auth/refresh_token").permitAll()
               .requestMatchers(HttpMethod.GET,"/user/list").permitAll()
               .requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN")
               .requestMatchers("/proveedores/**").hasAnyRole("ADMIN","COMPRADOR")
@@ -41,7 +47,7 @@ public class SecurityConfig {
               .requestMatchers("/deposito/**").hasAnyRole("ADMIN","REPOSITOR")
               .anyRequest().authenticated())
               .addFilter(new JWTAuthenticationFilter(authManager()))
-              .addFilter(new JWTAuthorizationFilter(authManager()))
+              .addFilter(new JWTAuthorizationFilter(authManager(), tokensUtils, userDetailService))
               .csrf().disable()
               .cors().and()
               .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

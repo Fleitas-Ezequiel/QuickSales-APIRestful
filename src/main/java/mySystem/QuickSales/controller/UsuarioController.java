@@ -86,7 +86,7 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> eliminarUsuario(@PathVariable String username){
         try {
-            User usuario = userService.getUserByUsername(username);
+            User usuario = userService.getUserByUsername(username).get();
             userService.eliminarUsuario(usuario);
             return ResponseEntity.ok("Usuario eliminado con exito");
         } catch (Exception e) {

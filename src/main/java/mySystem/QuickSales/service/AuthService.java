@@ -27,7 +27,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
-@AllArgsConstructor
 public class AuthService {
   
   @Autowired
@@ -44,6 +43,19 @@ public class AuthService {
   
   @Autowired
   private final AuthenticationManager authenticationManager;
+
+  public AuthService(
+          TokenRepository tokenRepository, 
+          UserRepository userRepository, 
+          PasswordEncoder passwordEncoder, 
+          TokensUtils jwtUtils, 
+          AuthenticationManager authenticationManager) {
+    this.tokenRepository = tokenRepository;
+    this.userRepository = userRepository;
+    this.passwordEncoder = passwordEncoder;
+    this.jwtUtils = jwtUtils;
+    this.authenticationManager = authenticationManager;
+  }
   
   public AuthenticationResponse register(User request) throws JsonProcessingException {
 
@@ -143,7 +155,7 @@ public class AuthService {
         // check if the user exist in database
         User user = userRepository.findByUsername(username)
                 .orElseThrow(()->new RuntimeException("No user found"));
-
+        
         // check if the token is valid
         if(jwtUtils.isValidRefreshToken(token, user)) {
             // generate access token
@@ -157,6 +169,8 @@ public class AuthService {
             saveUserToken(accessToken, refreshToken, user);
 
             return new ResponseEntity(new AuthenticationResponse(accessToken, refreshToken, "New token generated"), HttpStatus.OK);
+        } else {
+          System.out.println("No se pudo validar el refresh token");
         }
         
         return new ResponseEntity(HttpStatus.UNAUTHORIZED);

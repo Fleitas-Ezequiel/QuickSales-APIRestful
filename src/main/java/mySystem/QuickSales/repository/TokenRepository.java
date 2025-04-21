@@ -21,5 +21,8 @@ public interface TokenRepository extends JpaRepository<Token, Integer>{
   
   Optional<Token> findByAccessToken(String token);
   
-  Optional<Token> findByRefreshToken(@Param("refresh") String token);
+  @Query("""
+         SELECT t FROM Token t WHERE t.refreshToken LIKE :refresh
+         """)
+  Optional<Token> findByRefreshToken(@Param("refresh") String refreshToken);
 }

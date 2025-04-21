@@ -18,11 +18,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Role")
+@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id_role;
+    @Column(name = "id_role")
+    private int idRole;
     
     @Column(unique = true)
     private String name;

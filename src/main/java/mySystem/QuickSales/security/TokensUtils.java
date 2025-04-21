@@ -11,8 +11,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.function.Function;
 import javax.crypto.SecretKey;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import mySystem.QuickSales.model.User;
 import mySystem.QuickSales.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +19,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
-@NoArgsConstructor
 public class TokensUtils {
     public final static String GENERATED_TOKEN_SECRET = "jIvqUvRZPMO1nG1wHQIb3LOt0qcnwE7nBrKhqg2lVUZWTZzGi3WPyAw1zFl3WT9"; // Llave secreta de acceso
-    private final static long ACCESS_TOKEN_VALIDITY_SECONDS = 15*60*1000; // tiempo de validez del token a 5 minutos expresado en milisegundos
+    private final static long ACCESS_TOKEN_VALIDITY_SECONDS = 2*60*1000; // tiempo de validez del token a 5 minutos expresado en milisegundos
     private final static long REFRESH_TOKEN_VALIDITY_SECONDS = 14*24*60*60*1000;
     
     @Autowired
-    private TokenRepository tokenRepository;
-    
+    private final TokenRepository tokenRepository;
+
+    public TokensUtils(TokenRepository tokenRepository) {
+      this.tokenRepository = tokenRepository;
+    }
+     
     //Este metodo creara el token que sera enviado al cliente
     public static String createAccessToken(String username, Collection<? extends GrantedAuthority> roles) throws JsonProcessingException{
       return generateToken(username, roles, ACCESS_TOKEN_VALIDITY_SECONDS);
@@ -43,7 +43,6 @@ public class TokensUtils {
     private static String generateToken(String username, 
             Collection<? extends GrantedAuthority> roles,
             Long expiration)throws JsonProcessingException{
-      Date expirationDate = new Date(System.currentTimeMillis() + expiration);
       
       Claims claims = Jwts.claims()
               .add("authorities", new ObjectMapper().writeValueAsString(roles))
@@ -54,7 +53,7 @@ public class TokensUtils {
               .subject(username)
               .claims(claims)
               .issuedAt(new Date(System.currentTimeMillis()))
-              .expiration(expirationDate)
+              .expiration(new Date(System.currentTimeMillis() + expiration))
               .signWith(getSigninKey())
               .compact();
     }
@@ -88,10 +87,10 @@ public class TokensUtils {
     
     public boolean isValidRefreshToken(String token, User user) {
         String username = extractUsername(token);
-
+        
         boolean validRefreshToken = tokenRepository
                 .findByRefreshToken(token)
-                .map(t -> t.isLoggedOut())
+                .map(t -> !t.isLoggedOut())
                 .orElse(false);
 
         return (username.equals(user.getUsername())) && !isTokenExpired(token) && validRefreshToken;
@@ -103,12 +102,12 @@ public class TokensUtils {
     
     public boolean isValid(String token, UserDetails user) {
         String username = extractUsername(token);
-
+        
         boolean validToken = tokenRepository
                 .findByAccessToken(token)
                 .map(t -> !t.isLoggedOut())
                 .orElse(false);
-
+        
         return (username.equals(user.getUsername())) && !isTokenExpired(token) && validToken;
     }
 }

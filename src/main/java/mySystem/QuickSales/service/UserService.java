@@ -108,12 +108,11 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        User usuario = new User();
+    public Optional<User> getUserByUsername(String username) {
         Optional<User> user_optional = user_repo.findByUsername(username);
         if(user_optional.isPresent()){
-          usuario = user_optional.get();
+          return user_optional;
         }
-        return usuario;
+        return null;
     }
 }

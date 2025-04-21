@@ -34,8 +34,8 @@ import lombok.NoArgsConstructor;
 public class User {
     @Id
     @Column(name = "id_user")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idUser;
     
     @NotNull
     @NotBlank
