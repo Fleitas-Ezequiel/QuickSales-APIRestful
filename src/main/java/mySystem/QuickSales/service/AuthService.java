@@ -141,7 +141,7 @@ public class AuthService {
             HttpServletResponse response) throws JsonProcessingException {
         // extract the token from authorization header
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-
+        
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
             System.out.println("No coincide");
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);

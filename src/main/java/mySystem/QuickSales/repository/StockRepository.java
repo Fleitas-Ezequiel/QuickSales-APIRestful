@@ -31,5 +31,22 @@ public interface StockRepository extends JpaRepository<Stock, String>{
           + "GROUP BY p.idProducto")
   List<Object[]> findStockControlByProduct(@Param("product") String producto);
   
+  @Transactional
+  @Query("SELECT p.idProducto, p.producto, p.marca, p.medida, p.tipo, p.descripcion, COUNT(s.idStock), s.precio_venta, s.fecha_vencimiento "
+          + "FROM Producto p "
+          + "JOIN p.stock s "
+          + "WHERE s.estado = 'En almacen' "
+          + "AND (:code IS NULL OR :code = '' OR s.codigo = :code)"
+          + "GROUP BY p.idProducto")
+  List<Object[]> findStockControlByCodigo(@Param("code") Long codigo);
+  
+  @Transactional
+  @Query("""
+         SELECT s.codigo,s.fecha_vencimiento,s.estado,s.precio_compra,s.precio_venta, COUNT(s.idStock)
+         FROM Producto p JOIN p.stock s WHERE p.idProducto = :id_product GROUP BY s.codigo
+         """)
+  List<Object[]> findStockGroupByCodigo(@Param("id_product") int id_producto);
+  
   Page<Stock> findByProductoIdProductoAndEstado(int idProducto, String estado,Pageable pageable);
+    
 }

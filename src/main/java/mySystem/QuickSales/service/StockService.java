@@ -125,46 +125,65 @@ public class StockService implements IStockService{
     return lista;
   }
 
-    @Override
-    public List<StockDTOControl> listarStocks() {
-      List<Object[]> lista = stock_repo.findStockControl();
-      List<StockDTOControl> stock_list = new ArrayList<>();
-      for(Object[] stock: lista){
-        StockDTOControl stock_object = new StockDTOControl();
-        stock_object.setIdProducto((Integer)stock[0]);
-        stock_object.setProducto((String)stock[1]);
-        stock_object.setMarca((String)stock[2]);
-        stock_object.setMedida((String)stock[3]);
-        stock_object.setTipo((String)stock[4]);
-        stock_object.setDescripcion((String)stock[5]);
-        stock_object.setCantidad((Long)stock[6]);
-        
-        stock_list.add(stock_object);
-      }
-      return stock_list;
-    }
-    
-    @Override
-    public List<StockDTOControl> listarStockPorProducto(String producto) {
-      List<Object[]> lista = stock_repo.findStockControlByProduct(producto);
-      List<StockDTOControl> stock_list = new ArrayList<>();
-      for(Object[] stock: lista){
-        StockDTOControl stock_object = new StockDTOControl();
-        stock_object.setIdProducto((Integer)stock[0]);
-        stock_object.setProducto((String)stock[1]);
-        stock_object.setMarca((String)stock[2]);
-        stock_object.setMedida((String)stock[3]);
-        stock_object.setTipo((String)stock[4]);
-        stock_object.setDescripcion((String)stock[5]);
-        stock_object.setCantidad((Long)stock[6]);
-        stock_object.setPrecio_venta((Float) stock[7]);
-        stock_object.setFecha_vencimiento((Date) stock[8]);
-        
-        stock_list.add(stock_object);
-      }
-      return stock_list;
-    }
+  @Override
+  public List<StockDTOControl> listarStocks() {
+    List<Object[]> lista = stock_repo.findStockControl();
+    List<StockDTOControl> stock_list = new ArrayList<>();
+    for(Object[] stock: lista){
+      StockDTOControl stock_object = new StockDTOControl();
+      stock_object.setIdProducto((Integer)stock[0]);
+      stock_object.setProducto((String)stock[1]);
+      stock_object.setMarca((String)stock[2]);
+      stock_object.setMedida((String)stock[3]);
+      stock_object.setTipo((String)stock[4]);
+      stock_object.setDescripcion((String)stock[5]);
+      stock_object.setCantidad((Long)stock[6]);
 
+      stock_list.add(stock_object);
+    }
+    return stock_list;
+  }
+    
+  @Override
+  public List<StockDTOControl> listarStockControlBusqueda(String parameter) {
+    if(parameter.matches("\\d+") && parameter.length() >= 8 || parameter.length() <= 13){
+      return listarStockControlPorCodigo(Long.parseLong(parameter));
+    } else {
+      return listarStockControlPorProducto(parameter);
+    }
+  }
+  
+  @Override
+  public List<StockDTOControl> listarStockControlPorProducto(String producto) {
+    List<Object[]> lista = stock_repo.findStockControlByProduct(producto);
+    return stockControlMapper(lista);
+  }
+  
+  @Override
+  public List<StockDTOControl> listarStockControlPorCodigo(Long codigo) {
+    List<Object[]> lista = stock_repo.findStockControlByCodigo(codigo);
+    return stockControlMapper(lista);
+  }
+  
+  private List<StockDTOControl> stockControlMapper(List<Object[]> lista){
+    List<StockDTOControl> stock_list = new ArrayList<>();
+    for(Object[] stock: lista){
+      StockDTOControl stock_object = new StockDTOControl();
+      stock_object.setIdProducto((Integer)stock[0]);
+      stock_object.setProducto((String)stock[1]);
+      stock_object.setMarca((String)stock[2]);
+      stock_object.setMedida((String)stock[3]);
+      stock_object.setTipo((String)stock[4]);
+      stock_object.setDescripcion((String)stock[5]);
+      stock_object.setCantidad((Long)stock[6]);
+      stock_object.setPrecio_venta((Float) stock[7]);
+      stock_object.setFecha_vencimiento((Date) stock[8]);
+
+      stock_list.add(stock_object);
+    }
+    return stock_list;
+  }
+  
   @Override
   public Page paginarStock(Pageable pageable) {
     Page<Stock> stocks = stock_repo.findAll(pageable);
@@ -177,6 +196,24 @@ public class StockService implements IStockService{
   public Page paginarStockPorProducto(Pageable pageable, int id_producto, String estado) {
     Page<Stock> stocks = stock_repo.findByProductoIdProductoAndEstado(id_producto, estado, pageable);
     return stocks.map(stock -> modelMapper.map(stock, StockDTO.class));
+  }
+
+  @Override
+  public List<StockDTO> listarStockPorCodigo(int id_producto) {
+    List<Object[]> stock = stock_repo.findStockGroupByCodigo(id_producto);
+    List<StockDTO> stock_list = new ArrayList();
+    for(Object[] lista: stock){
+        StockDTO stock_object = new StockDTO();
+        stock_object.setCodigo((Long)lista[0]);
+        stock_object.setFecha_vencimiento((Date)lista[1]);
+        stock_object.setEstado((String)lista[2]);
+        stock_object.setPrecio_compra((Float)lista[3]);
+        stock_object.setPrecio_venta((Float)lista[4]);
+        stock_object.setCantidad((Long)lista[5]);
+        
+        stock_list.add(stock_object);
+      }
+    return stock_list;
   }
   
 }

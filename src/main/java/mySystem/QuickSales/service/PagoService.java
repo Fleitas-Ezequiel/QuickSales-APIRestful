@@ -76,12 +76,29 @@ public class PagoService implements IPagoService{
   @Override
   public void actualizrPagoProveedor(PagoDTO pago_dto) {
     try {
-      Optional<Pago> pago = pago_proveedor_repo.findById(pago_dto.getId());
-      if(pago.isPresent()){
-        Pago pago_prov = modelMapper.map(pago, Pago.class);
-        pago_proveedor_repo.save(pago_prov);
+      Optional<Pago> pago_optional = pago_proveedor_repo.findById(pago_dto.getId());
+      if(pago_optional.isPresent()){
+        Pago pago_original = pago_optional.get();
+        
+        pago_original.setTipo(pago_dto.getTipo());
+        pago_original.setImporte(pago_dto.getImporte());
+        pago_original.setDetalle(pago_dto.getDetalle());
+        
+        System.out.println("Fecha: "+pago_dto.getFecha());
+        if(pago_dto.getFecha() != null){
+          pago_original.setFecha(pago_dto.getFecha());
+        }
+        
+        Optional<Comprobante> comprobante_optional = comprobante_service.findComprobanteById(pago_dto.getComprobante().getId());
+        if(comprobante_optional.isPresent()){
+          pago_original.setComprobante(comprobante_optional.get());
+        }
+        
+        pago_proveedor_repo.save(pago_original);
+      } else {
+        throw new CustomException("Pago no encontrado. Error en la actualización del pago.");
       }
-    } catch (Exception e) {
+    } catch (CustomException e) {
       System.err.println(e.getMessage());
     }
   }

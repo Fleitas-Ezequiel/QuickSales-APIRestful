@@ -1,5 +1,6 @@
 package mySystem.QuickSales.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 public class Pago {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id_pago", unique = true)
   private int id_pago;
   
   private Date fecha;

@@ -16,7 +16,7 @@ public class StockDTO implements Serializable{
   private String estado;
   private float precio_venta;
   private float precio_compra;
-  private int cantidad;
+  private long cantidad;
   private ProductoDTO producto_dto;
   private ComprobanteDTO comprobante_dto;
   private VentaDTO venta_dto;
