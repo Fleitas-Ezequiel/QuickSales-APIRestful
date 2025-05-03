@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "stock")
 public class Stock {
   @Id
-  @Column(name = "id_stock")
+  @Column(name = "id_stock", unique = true)
   private String idStock;
   
   private Long codigo;

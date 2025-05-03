@@ -18,5 +18,6 @@ public interface IStockService {
   public List<StockDTOControl> listarStockControlBusqueda(String search);
   public List<StockDTOControl> listarStockControlPorProducto(String producto);
   public List<StockDTOControl> listarStockControlPorCodigo(Long codigo);
-  public List<StockDTO> listarStockPorCodigo(int id_producto);
+  public List<StockDTO> listarStockPorIdProducto(int id_producto);
+  public List<StockDTO> listarStockPorCodigo(Long codigo);
 }

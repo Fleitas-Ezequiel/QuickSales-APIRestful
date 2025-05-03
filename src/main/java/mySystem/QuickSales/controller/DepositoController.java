@@ -3,6 +3,7 @@ package mySystem.QuickSales.controller;
 import java.util.List;
 import mySystem.QuickSales.DTO.StockDTO;
 import mySystem.QuickSales.DTO.StockDTOControl;
+import mySystem.QuickSales.configuration.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,12 +79,23 @@ public class DepositoController {
     return depositoService.listarStockControlBusqueda(producto);
   }
   
-  @GetMapping("/list-code")
+  @GetMapping("/list-by-product")
   @ResponseBody
-  public List<StockDTO> listarProveedores(@RequestParam String id_producto){
+  public List<StockDTO> listarStockPorProducto(@RequestParam String id_producto){
     try {
-      return depositoService.listarStockPorCodigo(Integer.parseInt(id_producto));
-    } catch (Exception e) {
+      return depositoService.listarStockPorIdProducto(Integer.parseInt(id_producto));
+    } catch (CustomException e) {
+      System.err.println(e.getMessage());
+      return null;
+    }
+  }
+  
+  @GetMapping("/list-by-code")
+  @ResponseBody
+  public List<StockDTO> listarStockPorCodigo(@RequestParam String codigo){
+    try {
+      return depositoService.listarStockPorCodigo(Long.parseLong(codigo));
+    } catch (NumberFormatException e) {
       System.err.println(e.getMessage());
       return null;
     }

@@ -15,8 +15,6 @@ public class VentaDTO implements Serializable{
   private Date fecha_venta;
   private float importe;
   private String detalle;
-  private int cantidad;
-  private String unidad;
   private List<StockDTO> stock_dto;
   private List<MetodoVentaDTO> metodo_venta_dto;
 }

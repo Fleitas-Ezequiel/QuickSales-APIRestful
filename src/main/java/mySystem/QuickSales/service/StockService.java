@@ -11,8 +11,10 @@ import mySystem.QuickSales.DTO.StockDTOControl;
 import mySystem.QuickSales.configuration.CustomException;
 import mySystem.QuickSales.iservice.IProductoService;
 import mySystem.QuickSales.model.Comprobante;
+import mySystem.QuickSales.model.Descuento;
 import mySystem.QuickSales.model.Producto;
 import mySystem.QuickSales.model.Stock;
+import mySystem.QuickSales.model.Venta;
 import mySystem.QuickSales.repository.ProductoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,14 +96,56 @@ public class StockService implements IStockService{
   @Override
   public void actualizarStock(StockDTO stock_dto) {
     try {
-      Optional<Stock> deposito = stock_repo.findById(stock_dto.getIdStock());
-      if(deposito.isPresent()){
-        Stock boleta_proveedor = modelMapper.map(deposito, Stock.class);
-        stock_repo.save(boleta_proveedor);
+      if(stock_dto.getIdStock() != null && !stock_dto.getIdStock().isEmpty() && !stock_dto.getIdStock().isBlank()){
+        Optional<Stock> stock_optional = stock_repo.findById(stock_dto.getIdStock());
+        if(stock_optional.isPresent()){
+          stock_repo.save(stockMapper(stock_dto));
+        } else {
+          System.err.println("No existe el stock buscado");
+        }
+      } else {
+        if(stock_dto.getCodigo() != null){
+          List<Stock> list_stock = stock_repo.findStockByCodigoAndEstado(stock_dto.getCodigo(), "En almacen");
+          if(list_stock.size() > 1){
+            List<Stock> new_list = new ArrayList<>();
+            for(int i=0; i<stock_dto.getCantidad(); i++){
+              System.out.println("Stock Id: "+list_stock.get(i).getIdStock());
+              list_stock.get(i).setEstado("Vendido");
+              list_stock.get(i).setVenta(modelMapper.map(stock_dto.getVenta_dto(), Venta.class));
+              new_list.add(list_stock.get(i));
+            }
+            stock_repo.saveAll(new_list);
+          } else {
+            System.out.println("Stock id: "+list_stock.get(0).getIdStock());
+            list_stock.get(0).setEstado("Vendido");
+            list_stock.get(0).setVenta(modelMapper.map(stock_dto.getVenta_dto(), Venta.class));
+            stock_repo.save(list_stock.get(0));
+          }
+        } else {
+          System.out.println(" No se puede buscar el stock.\n No hay Id ni Codigo para realizar la busqueda");
+        }
       }
     } catch (Exception e) {
+      System.err.println("Error en actualizacion de stock");
       System.err.println(e.getMessage());
     }
+  }
+  
+  private Stock stockMapper(StockDTO stock_dto){
+    Stock stock = new Stock();
+    
+    stock.setIdStock(stock_dto.getIdStock());
+    stock.setCodigo(stock_dto.getCodigo());
+    stock.setEstado(stock_dto.getEstado());
+    stock.setFecha_vencimiento(stock_dto.getFecha_vencimiento());
+    stock.setPrecio_compra(stock_dto.getPrecio_compra());
+    stock.setPrecio_venta(stock_dto.getPrecio_venta());
+    stock.setComprobante(modelMapper.map(stock_dto.getComprobante_dto(), Comprobante.class));
+    stock.setVenta(modelMapper.map(stock_dto.getVenta_dto(), Venta.class));
+    stock.setProducto(modelMapper.map(stock_dto.getProducto_dto(), Producto.class));
+    stock.setDescuento(modelMapper.map(stock_dto.getDescuento_dto(), Descuento.class));
+    
+    return stock;
   }
 
   @Override
@@ -112,6 +156,7 @@ public class StockService implements IStockService{
         stock_repo.deleteById(deposito.get().getIdStock());
       }
     } catch (Exception e) {
+      System.out.println("Error de actualizacion del stock");
       System.err.println(e.getMessage());
     }
   }
@@ -146,11 +191,13 @@ public class StockService implements IStockService{
     
   @Override
   public List<StockDTOControl> listarStockControlBusqueda(String parameter) {
-    if(parameter.matches("\\d+") && parameter.length() >= 8 || parameter.length() <= 13){
+    if( !parameter.isBlank()
+        && parameter.matches("\\d+") 
+        && parameter.length() > 7 
+        && parameter.length() <= 13){
       return listarStockControlPorCodigo(Long.parseLong(parameter));
-    } else {
-      return listarStockControlPorProducto(parameter);
     }
+    return listarStockControlPorProducto(parameter);
   }
   
   @Override
@@ -178,6 +225,7 @@ public class StockService implements IStockService{
       stock_object.setCantidad((Long)stock[6]);
       stock_object.setPrecio_venta((Float) stock[7]);
       stock_object.setFecha_vencimiento((Date) stock[8]);
+      stock_object.setCodigo((Long) stock[9]);
 
       stock_list.add(stock_object);
     }
@@ -199,8 +247,8 @@ public class StockService implements IStockService{
   }
 
   @Override
-  public List<StockDTO> listarStockPorCodigo(int id_producto) {
-    List<Object[]> stock = stock_repo.findStockGroupByCodigo(id_producto);
+  public List<StockDTO> listarStockPorIdProducto(int id_producto) {
+    List<Object[]> stock = stock_repo.findStockGroupByIdProducto(id_producto);
     List<StockDTO> stock_list = new ArrayList();
     for(Object[] lista: stock){
         StockDTO stock_object = new StockDTO();
@@ -213,6 +261,19 @@ public class StockService implements IStockService{
         
         stock_list.add(stock_object);
       }
+    return stock_list;
+  }
+
+  @Override
+  public List<StockDTO> listarStockPorCodigo(Long codigo) {
+    List<Stock> stock = stock_repo.findStockByCodigoAndEstado(codigo, "En almacen");
+    List<StockDTO> stock_list = new ArrayList<>();
+    if(!stock.isEmpty()){
+      for(Stock s: stock){
+        StockDTO stock_dto = modelMapper.map(s, StockDTO.class);
+        stock_list.add(stock_dto);
+      }
+    }
     return stock_list;
   }
   

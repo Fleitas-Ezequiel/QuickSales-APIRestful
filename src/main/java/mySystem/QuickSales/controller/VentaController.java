@@ -24,7 +24,7 @@ public class VentaController {
   @Autowired
   private IVentaService ventaService;
   
-  @PostMapping("/registry")
+  @PostMapping("/registrar")
   @ResponseStatus(HttpStatus.CREATED)
   public ResponseEntity<String> registrarVenta(@RequestBody VentaDTO venta){
     try {

@@ -7,6 +7,7 @@ import java.util.Optional;
 import mySystem.QuickSales.DTO.MetodoVentaDTO;
 import mySystem.QuickSales.DTO.StockDTO;
 import mySystem.QuickSales.DTO.VentaDTO;
+import mySystem.QuickSales.configuration.CustomException;
 import mySystem.QuickSales.model.Venta;
 import mySystem.QuickSales.repository.VentaRepository;
 import org.modelmapper.ModelMapper;
@@ -31,24 +32,34 @@ public class VentaService implements IVentaService{
   @Override
   public void registrarVenta(VentaDTO venta_dto){
       try {
-          Venta venta = modelMapper.map(venta_dto, Venta.class);
-          venta_repo.save(venta);
-          if(venta_dto.getStock_dto() != null){
-              for(StockDTO s: venta_dto.getStock_dto()){
-                  stock_service.actualizarStock(s);
-              }
-          } else {
-              System.out.println("Debe ingresar productos para vender");
+        Venta venta = new Venta();
+        venta.setIdVenta(null);
+        venta.setFecha(venta_dto.getFecha_venta());
+        venta.setImporte(venta_dto.getImporte());
+        venta.setDetalle(venta_dto.getDetalle());
+        venta_repo.save(venta);
+        
+        // verificamos si envio una lista de venta vacia
+        if(venta_dto.getStock_dto() != null){
+          for(StockDTO s: venta_dto.getStock_dto()){
+            s.setVenta_dto(modelMapper.map(venta, VentaDTO.class));
+            stock_service.actualizarStock(s);
           }
-          if(venta_dto.getMetodo_venta_dto() != null){
-              for(MetodoVentaDTO mv: venta_dto.getMetodo_venta_dto()){
-                  metodo_venta_service.registrarMetodoVenta(mv);
-              }
-          } else {
-              System.out.println("Debe ingresar el metodo de venta");
-          }
+        } else {
+          throw new CustomException("Debe ingresar productos para vender");
+        }
+        //verificamos si envio un metodo de pago invalido
+        if(venta_dto.getMetodo_venta_dto() != null){
+            for(MetodoVentaDTO mv: venta_dto.getMetodo_venta_dto()){
+              mv.setVenta_dto(modelMapper.map(venta, VentaDTO.class));
+              metodo_venta_service.registrarMetodoVenta(mv);
+            }
+        } else {
+           throw new CustomException("Debe ingresar el metodo de venta");
+        }
       } catch (Exception e) {
-          System.err.println(e.getMessage());
+        System.err.println("Error en el registro de venta");
+        System.err.println(e.getMessage());
       }
   }
 
@@ -70,7 +81,7 @@ public class VentaService implements IVentaService{
       try {
           Optional<Venta> venta = venta_repo.findById(venta_dto.getId());
           if(venta.isPresent()){
-              venta_repo.deleteById(venta.get().getId_venta());
+              venta_repo.deleteById(venta.get().getIdVenta());
           }
       } catch (Exception e) {
           System.err.println(e.getMessage());

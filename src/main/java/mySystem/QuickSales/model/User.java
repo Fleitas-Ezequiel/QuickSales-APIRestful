@@ -64,14 +64,14 @@ public class User {
     @JsonIgnoreProperties({"users","handler","hibernateLazyInitializer"}) // Ignorando la lista de users de la entidad rol rompemos el bucle ciclico
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="role_id"),
-            uniqueConstraints = {
-                @UniqueConstraint(
-                        columnNames = {"user_id","role_id"}
-                )
-            }
+      name = "user_role",
+      joinColumns = @JoinColumn(name="user_id"),
+      inverseJoinColumns = @JoinColumn(name="role_id"),
+      uniqueConstraints = {
+          @UniqueConstraint(
+                  columnNames = {"user_id","role_id"}
+          )
+      }
     )
     private List<Role> roles;
     

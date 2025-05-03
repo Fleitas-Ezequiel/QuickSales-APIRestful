@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TokensUtils {
-    public final static String GENERATED_TOKEN_SECRET = ""; // Llave secreta de acceso
+    public final static String GENERATED_TOKEN_SECRET = "jIvqUvRZPMO1nG1wHQIb3LOt0qcnwE7nBrKhqg2lVUZWTZzGi3WPyAw1zFl3WT9"; // Llave secreta de acceso
     private final static long ACCESS_TOKEN_VALIDITY_SECONDS = 15*60*1000; // tiempo de validez del token a 5 minutos expresado en milisegundos
     private final static long REFRESH_TOKEN_VALIDITY_SECONDS = 14*24*60*60*1000;
     

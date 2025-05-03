@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import mySystem.QuickSales.DTO.MetodoVentaDTO;
 import mySystem.QuickSales.model.MetodoVenta;
+import mySystem.QuickSales.model.Venta;
 import mySystem.QuickSales.repository.MetodoVentaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,13 @@ public class MetodoVentaService implements IMetodoVentaService{
   @Override
   public void registrarMetodoVenta(MetodoVentaDTO metodo) {
     try {
-      MetodoVenta mv = modelMapper.map(metodo, MetodoVenta.class);
+      MetodoVenta mv = new MetodoVenta();
+      mv.setTipo(metodo.getTipo());
+      mv.setImporte(metodo.getImporte());
+      mv.setVenta(modelMapper.map(metodo.getVenta_dto(), Venta.class));
       metodo_venta_repo.save(mv);
     } catch (Exception e) {
+      System.err.println("Error de actualizacion del metodo de venta");
       System.err.println(e.getMessage());
     }
   }

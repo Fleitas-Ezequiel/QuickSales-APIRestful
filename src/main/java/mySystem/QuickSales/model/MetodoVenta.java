@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "metodo_venta")
 public class MetodoVenta {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private int id_metodo_venta;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id_metodo_venta;
   
   private String tipo;
   private float importe;

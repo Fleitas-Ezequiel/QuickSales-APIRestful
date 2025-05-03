@@ -19,4 +19,5 @@ public class StockDTOControl implements Serializable{
     private Long cantidad;
     private Float precio_venta;
     private Date fecha_vencimiento;
+    private Long codigo;
 }
