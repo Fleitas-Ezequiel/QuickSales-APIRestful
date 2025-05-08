@@ -81,9 +81,9 @@ public class DepositoController {
   
   @GetMapping("/list-by-product")
   @ResponseBody
-  public List<StockDTO> listarStockPorProducto(@RequestParam String id_producto){
+  public List<StockDTO> listarStockPorProducto(@RequestParam String id_producto, @RequestParam String estado){
     try {
-      return depositoService.listarStockPorIdProducto(Integer.parseInt(id_producto));
+      return depositoService.listarStockPorIdProducto(Integer.parseInt(id_producto), estado);
     } catch (CustomException e) {
       System.err.println(e.getMessage());
       return null;

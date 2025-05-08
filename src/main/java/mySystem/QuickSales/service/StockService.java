@@ -247,8 +247,9 @@ public class StockService implements IStockService{
   }
 
   @Override
-  public List<StockDTO> listarStockPorIdProducto(int id_producto) {
-    List<Object[]> stock = stock_repo.findStockGroupByIdProducto(id_producto);
+  public List<StockDTO> listarStockPorIdProducto(int id_producto, String estado) {
+    System.out.println("Estado: "+estado);
+    List<Object[]> stock = stock_repo.findStockGroupByIdProducto(id_producto, estado);
     List<StockDTO> stock_list = new ArrayList();
     for(Object[] lista: stock){
         StockDTO stock_object = new StockDTO();
