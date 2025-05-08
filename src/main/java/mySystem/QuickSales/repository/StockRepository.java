@@ -32,7 +32,7 @@ public interface StockRepository extends JpaRepository<Stock, String>{
   List<Object[]> findStockControlByProduct(@Param("product") String producto);
   
   @Transactional
-  @Query("SELECT p.idProducto, p.producto, p.marca, p.medida, p.tipo, p.descripcion, COUNT(s.idStock), s.precio_venta, s.fecha_vencimiento "
+  @Query("SELECT p.idProducto, p.producto, p.marca, p.medida, p.tipo, p.descripcion, COUNT(s.idStock), s.precio_venta, s.fecha_vencimiento, s.codigo "
           + "FROM Producto p "
           + "JOIN p.stock s "
           + "WHERE s.estado = 'En almacen' "
