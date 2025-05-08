@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: mySystem.QuickSales.service.CajaServiceTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in mySystem.QuickSales.service.CajaServiceTest
+Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0.006 s <<< FAILURE! - in mySystem.QuickSales.service.CajaServiceTest
 testModificarCaja  Time elapsed: 0.001 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at mySystem.QuickSales.service.CajaServiceTest.testModificarCaja(CajaServiceTest.java:64)
@@ -14,7 +14,7 @@ testRegistrarCaja  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at mySystem.QuickSales.service.CajaServiceTest.testRegistrarCaja(CajaServiceTest.java:51)
 
-testEliminarCaja  Time elapsed: 0 s  <<< FAILURE!
+testEliminarCaja  Time elapsed: 0.001 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at mySystem.QuickSales.service.CajaServiceTest.testEliminarCaja(CajaServiceTest.java:77)
 

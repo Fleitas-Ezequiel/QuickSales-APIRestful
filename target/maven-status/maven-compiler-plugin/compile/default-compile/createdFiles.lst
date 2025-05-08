@@ -32,7 +32,6 @@ mySystem\QuickSales\service\PagoService.class
 mySystem\QuickSales\model\Retiro.class
 mySystem\QuickSales\controller\AdminController.class
 mySystem\QuickSales\model\Comprobante.class
-mySystem\QuickSales\service\MetodoPagoService.class
 mySystem\QuickSales\service\MetodoVentaService.class
 mySystem\QuickSales\configuration\CorsConfig$1.class
 mySystem\QuickSales\repository\PagoRepository.class
@@ -96,6 +95,5 @@ mySystem\QuickSales\service\ClienteService.class
 mySystem\QuickSales\service\UserService.class
 mySystem\QuickSales\model\Contacto.class
 mySystem\QuickSales\service\ComprobanteService.class
+mySystem\QuickSales\controller\ConsumosController.class
 mySystem\QuickSales\iservice\IVentaService.class
-mySystem\QuickSales\model\MetodoPago.class
-mySystem\QuickSales\repository\MetodoPagoRepository.class

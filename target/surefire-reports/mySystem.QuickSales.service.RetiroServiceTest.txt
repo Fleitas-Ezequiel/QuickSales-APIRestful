@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: mySystem.QuickSales.service.RetiroServiceTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in mySystem.QuickSales.service.RetiroServiceTest
-testVerRetiro  Time elapsed: 0 s  <<< ERROR!
+Tests run: 4, Failures: 3, Errors: 1, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in mySystem.QuickSales.service.RetiroServiceTest
+testVerRetiro  Time elapsed: 0.001 s  <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.RetiroRepository.findAll()" because "this.retiro_repo" is null
 	at mySystem.QuickSales.service.RetiroServiceTest.testVerRetiro(RetiroServiceTest.java:88)
 

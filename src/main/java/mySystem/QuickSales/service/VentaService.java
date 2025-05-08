@@ -91,8 +91,13 @@ public class VentaService implements IVentaService{
   @Override
   public List<VentaDTO> verVenta() {
     List<VentaDTO> lista = new ArrayList();
-    for(Venta b : venta_repo.findAll()){
-      lista.add(modelMapper.map(b, VentaDTO.class));
+    for(Venta v : venta_repo.findAll()){
+      VentaDTO venta_dto = new VentaDTO();
+      venta_dto.setId(v.getIdVenta());
+      venta_dto.setFecha_venta(v.getFecha());
+      venta_dto.setImporte(v.getImporte());
+      venta_dto.setDetalle(v.getDetalle());
+      lista.add(venta_dto);
     }
     return lista;
   }

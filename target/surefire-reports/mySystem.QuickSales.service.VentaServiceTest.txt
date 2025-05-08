@@ -6,7 +6,7 @@ testModificarVenta  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at mySystem.QuickSales.service.VentaServiceTest.testModificarVenta(VentaServiceTest.java:64)
 
-testRegistrarVenta  Time elapsed: 0 s  <<< FAILURE!
+testRegistrarVenta  Time elapsed: 0.001 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
 	at mySystem.QuickSales.service.VentaServiceTest.testRegistrarVenta(VentaServiceTest.java:51)
 

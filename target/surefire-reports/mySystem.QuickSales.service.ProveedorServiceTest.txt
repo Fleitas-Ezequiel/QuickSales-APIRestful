@@ -4,21 +4,21 @@ Test set: mySystem.QuickSales.service.ProveedorServiceTest
 Tests run: 5, Failures: 3, Errors: 2, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in mySystem.QuickSales.service.ProveedorServiceTest
 testModificarProveedor  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at mySystem.QuickSales.service.ProveedorServiceTest.testModificarProveedor(ProveedorServiceTest.java:64)
+	at mySystem.QuickSales.service.ProveedorServiceTest.testModificarProveedor(ProveedorServiceTest.java:60)
 
 testVerProveedor  Time elapsed: 0 s  <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.ProveedorRepository.findAll()" because "this.proveedorRepo" is null
-	at mySystem.QuickSales.service.ProveedorServiceTest.testVerProveedor(ProveedorServiceTest.java:88)
+	at mySystem.QuickSales.service.ProveedorServiceTest.testVerProveedor(ProveedorServiceTest.java:84)
 
 testRegistrarProveedor  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at mySystem.QuickSales.service.ProveedorServiceTest.testRegistrarProveedor(ProveedorServiceTest.java:51)
+	at mySystem.QuickSales.service.ProveedorServiceTest.testRegistrarProveedor(ProveedorServiceTest.java:47)
 
 testVerProveedoresFiltrado  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.ProveedorRepository.findAll()" because "this.proveedorRepo" is null
-	at mySystem.QuickSales.service.ProveedorServiceTest.testVerProveedoresFiltrado(ProveedorServiceTest.java:103)
+java.lang.NullPointerException: Cannot invoke "mySystem.QuickSales.repository.ProveedorRepository.findByFiltros(String)" because "this.proveedorRepo" is null
+	at mySystem.QuickSales.service.ProveedorServiceTest.testVerProveedoresFiltrado(ProveedorServiceTest.java:99)
 
 testEliminarProveedor  Time elapsed: 0 s  <<< FAILURE!
 org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at mySystem.QuickSales.service.ProveedorServiceTest.testEliminarProveedor(ProveedorServiceTest.java:77)
+	at mySystem.QuickSales.service.ProveedorServiceTest.testEliminarProveedor(ProveedorServiceTest.java:73)
 
